@@ -38,6 +38,7 @@ CREATE TABLE Usuario(
 	direccion VARCHAR2(100),
 	pais VARCHAR2(50),
 	tipo VARCHAR2(1) NOT NULL,
+	registrado NUMBER NOT NULL,
 	PRIMARY KEY(id)
 );
 

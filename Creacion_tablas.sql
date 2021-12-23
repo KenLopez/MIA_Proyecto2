@@ -184,8 +184,8 @@ CREATE TABLE Tarjeta_credito(
 
 INSERT INTO USUARIO VALUES(
 	NULL,
-	'Kenneth',
-	'López',
+	'Admin',
+	'Default',
 	'123',
 	'admin@soccerstats.com',
 	NULL,
@@ -196,5 +196,6 @@ INSERT INTO USUARIO VALUES(
 	NULL,
 	NULL,
 	'A',
-	NULL
+	1
 );
+

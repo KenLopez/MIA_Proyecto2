@@ -25,12 +25,8 @@ router.get('/', async function(req, res, next) {
       FROM 
         Usuario`,
       [],
-      { 
-        outFormat: oracledb.OUT_FORMAT_OBJECT,
-        autoCommit: true
-      }
+      { outFormat: oracledb.OUT_FORMAT_OBJECT }
     )
-
     res.status(200);
   } catch (err) {
     res.status(500);

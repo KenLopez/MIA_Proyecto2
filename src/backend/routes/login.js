@@ -6,36 +6,47 @@ const config = {
   password: '2109',
   connectString: 'localhost:1521/ORCL18'
 }
+const queryConfig = {
+    outFormat: oracledb.OUT_FORMAT_OBJECT,
+    autoCommit: true,
+}
 
-/* GET users listing. */
 router.get('/', async function(req, res, next) {
   let conn;
-  let result;
+  const body = req.body;
+  let result = {result: [], errors: []};
 
   try {
     conn = await oracledb.getConnection(config)
 
-    result = await conn.execute(
-      `SELECT 
-        ID,
-        NOMBRE,
-        APELLIDOS,
-        CLAVE,
-        TO_CHAR(FECHA_NAC, 'DD-MM-YYYY') AS FECHA_NAC
-      FROM 
-        Usuario`,
-      [],
-      { outFormat: oracledb.OUT_FORMAT_OBJECT }
-    )
+    result.result = (await conn.execute(
+        `SELECT 
+            ID,
+            NOMBRE,
+            APELLIDOS,
+            CORREO
+        FROM 
+            Usuario
+        WHERE 
+            CORREO = '${body.CORREO}'
+            AND CLAVE = '${body.CLAVE}'    
+        `,
+        [],
+        queryConfig
+    ))?.rows;
     res.status(200);
+    if(result.result.length==0){
+        result.errors.push('Credenciales incorrectas');
+        res.status(500);
+    }
   } catch (err) {
     res.status(500);
   } finally {
-    if (conn) { // conn assignment worked, need to close
+    if (conn) { 
       await conn.close()
     }
   }
-  res.send(result?result.rows:[]);
+  res.send(result);
 });
 
 module.exports = router;

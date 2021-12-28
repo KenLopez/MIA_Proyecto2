@@ -39,8 +39,21 @@ router.post('/', async function(req, res, next) {
         }else{
             let confirmation = body.TIPO == 'A' || body.TIPO == 'E';
             await conn.execute(
-                `INSERT INTO USUARIO VALUES (
-                    NULL,
+                `INSERT INTO USUARIO(
+                    NOMBRE,
+                    APELLIDOS,
+                    CLAVE,
+                    CORREO,
+                    TELEFONO,
+                    FOTO,
+                    GENERO,
+                    FECHA_NAC,
+                    FECHA_REGISTRO,
+                    DIRECCION,
+                    PAIS,
+                    TIPO,
+                    REGISTRADO
+                ) VALUES(
                     '${body.NOMBRE}',
                     '${body.APELLIDOS}',
                     '${body.CLAVE}',
@@ -53,7 +66,7 @@ router.post('/', async function(req, res, next) {
                     '${body.DIRECCION}',
                     '${body.PAIS}',
                     '${body.TIPO}',
-                    ${confirmation}
+                    ${Number(confirmation)}
                 )`,
                 [],
                 queryConfig

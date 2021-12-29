@@ -91,6 +91,10 @@ router.put('/', async function(req, res) {
     console.log(e);
     result.errors.push('Token no válido');
     res.status(500);
+  } finally {
+    if (conn) { 
+      await conn.close()
+    }
   }
   res.send(result);
 });

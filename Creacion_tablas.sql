@@ -85,6 +85,7 @@ CREATE TABLE Bitacora(
 	id INTEGER GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1),
 	descripcion VARCHAR2(200),
 	accion VARCHAR2(25),
+	fecha DATE NOT NULL,
 	id_autor INTEGER NOT NULL,
 	id_objeto INTEGER NOT NULL,
 	PRIMARY KEY (id),
@@ -213,4 +214,25 @@ INSERT INTO USUARIO(
 );
 
 SELECT * FROM USUARIO;
+
+CREATE OR REPLACE PROCEDURE entrada_bitacora(id_autor IN INTEGER, id_objeto IN INTEGER, descripcion IN VARCHAR, accion IN VARCHAR) IS 
+BEGIN 
+	INSERT INTO BITACORA(
+		ACCION,
+		DESCRIPCION,
+		ID_AUTOR,
+		ID_OBJETO,
+		FECHA
+	) VALUES(
+		accion,
+		descripcion,
+		id_autor,
+		id_objeto,
+		SYSDATE
+	);
+END;
+
+CALL ENTRADA_BITACORA(1, 1, 'Inactividad', 'Eliminación');
+
+SELECT * FROM BITACORA;
 

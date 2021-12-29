@@ -1,17 +1,28 @@
 var express = require('express');
 var router = express.Router();
+var nodemailer = require('nodemailer');
+var jwt = require('jsonwebtoken');
 const oracledb = require('oracledb')
 const config = {
   user: 'kenneth',
   password: '2109',
   connectString: 'localhost:1521/ORCL18'
-}
+};
 const queryConfig = {
     outFormat: oracledb.OUT_FORMAT_OBJECT,
     autoCommit: true,
-}
+};
 
-router.post('/', async function(req, res, next) {
+const transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+      user: 'soccerstatsteam@gmail.com',
+      pass: 'Soc_Stats2021',
+    },
+  });
+const EMAIL_SECRET = 'asdf1093KMnzxcvnkljvasdu09123nlasdasdf';
+
+router.post('/', async function(req, res) {
     let conn;
     let result = {result: [], errors: []};
     const body = req.body;
@@ -72,12 +83,9 @@ router.post('/', async function(req, res, next) {
                 queryConfig
             );
     
-            result.result = (await conn.execute(
+            let id = (await conn.execute(
                 `SELECT 
-                    ID,
-                    NOMBRE,
-                    APELLIDOS,
-                    CORREO
+                    ID
                 FROM 
                     Usuario
                 WHERE 
@@ -85,7 +93,42 @@ router.post('/', async function(req, res, next) {
                 `,
                 [],
                 queryConfig
-            ))?.rows;
+            ))?.rows[0];
+
+            jwt.sign(
+                {
+                  user: id?.ID,
+                },
+                EMAIL_SECRET,
+                {
+                  expiresIn: '1d',
+                },
+                (err, emailToken) => {
+                  const url = `http://localhost:3000/confirmation/${emailToken}`;
+            
+                  transporter.sendMail({
+                    from: 'Soccer Statistics ⚽ <soccerstatsteam@gmail.com>',
+                    to: body.CORREO,
+                    subject: 'Confirm Email',
+                    html: confirmation
+                    ?`<p>¡Bienvenido al equipo de Soccer Statistics!</p><br/>
+                    <p>Tu cuenta de ${body.TIPO == 'A'?'ADMINISTRADOR':'EMPLEADO'} ha sido registrada con éxito.</p><br/>
+                    
+                    <p>Tus credenciales de acceso son las siguientes:</p><br/>
+                    <p>Correo: <b>${body.CORREO}</b></p>
+                    <p>Clave: <b>${body.CLAVE}</b></p><br/>
+                    
+                    <p>¡Recuerda cambiar tu clave de acceso en tu primera visita a la página!</p>`
+                    :`<p>¡Gracias por crear tu cuenta en Soccer Stats!</p>
+                    <p>Para confirmar tu registro, haz click en el siguiente link:</p>
+                    <a href="${url}">${url}</a><br/>
+                    <p>Si usted no ha realizado ningún registro, puede ignorar este mensaje.</p>
+                    <p>Nota: No podrá iniciar sesión hasta haber confirmado el correo proporcionado en la creación de su cuenta.</p>`
+                    ,
+                  });
+                },
+            );
+            result.result = { Message: 'Correo enviado'};
         }
         res.status(200);
     } catch (err) {

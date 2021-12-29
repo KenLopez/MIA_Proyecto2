@@ -4,6 +4,8 @@
 1. [General](#general)
 2. [Creación de cuentas](#creacion_cuentas)
 3. [Login](#login)
+3. [Confrmación de Correo](#confirmation)
+
 
 <a id="general"></a>
 ## General
@@ -11,7 +13,7 @@ Toda respuesta a una petición regresará un objeto JSON.
 ### Estructura
 ```javascript
 {
-    result: [] (resultado exitoso de la petición),
+    result: {} (resultado exitoso de la petición),
     errors: [] (de existir algún error, se agregará a la lista)
 } 
 ```
@@ -49,10 +51,7 @@ localhost:3000/register
 
 ```javascript
 {
-    ID: number,
-    NOMBRE: string,
-    APELLIDOS: string,
-    CORREO: string
+    Message: 'Correo enviado'
 } 
 ```
 <a id="login"></a>
@@ -71,7 +70,7 @@ localhost:3000/login
 ```javascript
 {
     CLAVE: string (contraseña),
-    CORREO: string,
+    CORREO: string
 } 
 ```
 
@@ -82,6 +81,34 @@ localhost:3000/login
     ID: number,
     NOMBRE: string,
     APELLIDOS: string,
-    CORREO: string
+    CORREO: string,
+    TIPO: string (misma nomenclatura de la cración de cuenta)
+} 
+```
+
+<a id="Confirmation"></a>
+## Confirmación de Correo
+
+### Endpoint
+
+```
+localhost:3000/login/confirmation/:token
+```
+
+### Métodos
+- Get
+
+### Modelo esperado
+Token traido del link por correo como parámetro en endpoint.
+
+### Retorno
+
+```javascript
+{
+    ID: number,
+    NOMBRE: string,
+    APELLIDOS: string,
+    CORREO: string,
+    TIPO: string (misma nomenclatura de la cración de cuenta)
 } 
 ```

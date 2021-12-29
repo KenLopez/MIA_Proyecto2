@@ -142,5 +142,54 @@ router.post('/', async function(req, res) {
     res.send(result);
 });
 
+  router.put('/', async function(req, res) {
+    let conn;
+    const body = req.body;
+    const cuenta = body.CUENTA;
+    let result = {result: [], errors: []};
+    try {
+      conn = await oracledb.getConnection(config)
+      await conn.execute(
+        `UPDATE USUARIO 
+        SET NOMBRE = '${cuenta.NOMBRE}',
+        APELLIDOS = '${cuenta.APELLIDOS}',
+        TELEFONO = ${cuenta.TELEFONO},
+        FOTO = ${cuenta.FOTO},
+        GENERO = '${cuenta.GENERO}',
+        FECHA_NAC = TO_DATE('${cuenta.FECHA_NAC}', 'YYYY-MM-DD'),
+        DIRECCION = '${cuenta.DIRECCION},
+        PAIS = '${cuenta.PAIS}',
+        TIPO = '${cuenta.TIPO}',
+        REGISTRADO = ${cuenta.REGISTRADO}
+        WHERE 
+            ID = ${body.ID}
+        `,
+        [],
+        queryConfig
+      );
+  
+      result.result = (await conn.execute(
+        `SELECT 
+            ID,
+            NOMBRE,
+            APELLIDOS,
+            CORREO, 
+            TIPO
+        FROM 
+            Usuario
+        WHERE 
+            ID = ${id}  
+        `,
+        [],
+        queryConfig
+      ))?.rows[0];
+    } catch (e) {
+      console.log(e);
+      result.errors.push('Token no válido');
+      res.status(500);
+    }
+    res.send(result);
+  });
+
 module.exports = router;
 

@@ -4,7 +4,6 @@
 1. [General](#general)
 2. [Creación de cuentas](#creacion_cuentas)
 3. [Login](#login)
-3. [Confrmación de Correo](#confirmation)
 
 
 <a id="general"></a>
@@ -29,8 +28,10 @@ localhost:3000/register
 
 ### Métodos
 - POST
+- PUT
 
 ### Modelo esperado
+### Post
 ```javascript
 {
     NOMBRE: string,
@@ -44,6 +45,25 @@ localhost:3000/register
     DIRECCION: string,
     PAIS: string,
     TIPO: 'N' (cliente normal) / 'A' (administrador) / 'E' (empleado) / 'P' (cliente premium)
+} 
+```
+### Put
+```javascript
+{
+    ID_ADMIN: number,
+    DESCRIPCION: string,
+    CUENTA: {
+        NOMBRE: string,
+        APELLIDOS: string,
+        TELEFONO: number,
+        FOTO: null (por el momento),
+        GENERO: 'M' (masculino) o 'F' (femenino),
+        FECHA_NAC: string (YYYY-MM-DD),
+        DIRECCION: string,
+        PAIS: string,
+        TIPO: 'N' (cliente normal) / 'A' (administrador) / 'E' (empleado) / 'P' (cliente premium)
+        REGISTRADO: 0 o 1
+    } (Información actualizada o con registrado 0 si se congela la cuenta)
 } 
 ```
 
@@ -65,43 +85,25 @@ localhost:3000/login
 
 ### Métodos
 - POST
+- PUT
 
 ### Modelo esperado
+### Post
 ```javascript
 {
     CLAVE: string (contraseña),
     CORREO: string
 } 
 ```
-
-### Retorno
-
+### Put
 ```javascript
 {
-    ID: number,
-    NOMBRE: string,
-    APELLIDOS: string,
-    CORREO: string,
-    TIPO: string (misma nomenclatura de la cración de cuenta)
+    TOKEN: string (token leído del link enviado por correo)
 } 
 ```
 
-<a id="Confirmation"></a>
-## Confirmación de Correo
-
-### Endpoint
-
-```
-localhost:3000/login/confirmation/:token
-```
-
-### Métodos
-- Get
-
-### Modelo esperado
-Token traido del link por correo como parámetro en endpoint.
-
 ### Retorno
+### Post, Put
 
 ```javascript
 {

@@ -55,13 +55,13 @@ router.post('/', async function(req, res) {
   res.send(result);
 });
 
-router.get('/confirmation/:token', async function(req, res) {
+router.put('/', async function(req, res) {
   let conn;
+  const body = req.body;
   let result = {result: [], errors: []};
   try {
     conn = await oracledb.getConnection(config)
-    const {user: id} = jwt.verify(req.params.token, EMAIL_SECRET);
-    console.log(id);
+    const {user: id} = jwt.verify(body.TOKEN, EMAIL_SECRET);
     await conn.execute(
       `UPDATE USUARIO 
       SET REGISTRADO = 1

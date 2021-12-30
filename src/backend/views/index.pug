@@ -3,3 +3,5 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+  video(width='600', height='400', autoplay='true', controls='true')
+    source(src="http://localhost:3000/video", type="video/mp4")

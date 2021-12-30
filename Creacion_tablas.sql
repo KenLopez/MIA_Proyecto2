@@ -214,8 +214,6 @@ INSERT INTO USUARIO(
 	1
 );
 
-SELECT * FROM USUARIO;
-
 CREATE OR REPLACE PROCEDURE entrada_bitacora(id_autor IN INTEGER, id_objeto IN INTEGER, descripcion IN VARCHAR, accion IN VARCHAR) IS 
 BEGIN 
 	INSERT INTO BITACORA(
@@ -232,8 +230,4 @@ BEGIN
 		SYSDATE
 	);
 END;
-
-CALL ENTRADA_BITACORA(1, 1, 'Inactividad', 'Eliminación');
-
-SELECT * FROM BITACORA;
 

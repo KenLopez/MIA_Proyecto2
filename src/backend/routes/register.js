@@ -2,16 +2,8 @@ var express = require('express');
 var router = express.Router();
 var nodemailer = require('nodemailer');
 var jwt = require('jsonwebtoken');
-const oracledb = require('oracledb')
-const config = {
-  user: 'kenneth',
-  password: '2109',
-  connectString: 'localhost:1521/ORCL18'
-};
-const queryConfig = {
-    outFormat: oracledb.OUT_FORMAT_OBJECT,
-    autoCommit: true,
-};
+const oracledb = require('oracledb');
+const settings = require('../public/javascripts/Settings');
 
 const transporter = nodemailer.createTransport({
     service: 'Gmail',
@@ -30,7 +22,7 @@ router.post('/', async function(req, res) {
     today = `${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}`;
         
     try {
-        conn = await oracledb.getConnection(config);
+        conn = await oracledb.getConnection(settings.conn);
         const exists = (await conn.execute(
             `SELECT 
                 ID,
@@ -44,7 +36,7 @@ router.post('/', async function(req, res) {
                 AND REGISTRADO <> -1   
             `,
             [],
-            queryConfig
+            settings.query
         ))?.rows.length>0;
         if(exists){
             result.errors.push('Correo ya fue registrado.');
@@ -81,7 +73,7 @@ router.post('/', async function(req, res) {
                     ${Number(confirmation)}
                 )`,
                 [],
-                queryConfig
+                settings.query
             );
     
             let id = (await conn.execute(
@@ -93,7 +85,7 @@ router.post('/', async function(req, res) {
                     CORREO = '${body.CORREO}'    
                 `,
                 [],
-                queryConfig
+                settings.query
             ))?.rows[0];
 
             jwt.sign(
@@ -147,7 +139,7 @@ router.post('/', async function(req, res) {
                   }'
                 )`,
                 [],
-                queryConfig
+                settings.query
               )
             }
             result.result = { MESSAGE: 'Correo enviado'};
@@ -170,7 +162,7 @@ router.put('/', async function(req, res) {
   const cuenta = body.CUENTA;
   let result = {result: [], errors: []};
   try {
-    conn = await oracledb.getConnection(config)
+    conn = await oracledb.getConnection(settings.conn)
     await conn.execute(
       `UPDATE USUARIO 
       SET NOMBRE = '${cuenta.NOMBRE}',
@@ -187,7 +179,7 @@ router.put('/', async function(req, res) {
           ID = ${body.ID}
       `,
       [],
-      queryConfig
+      settings.query
     );
     
     if(body.AUTOR){
@@ -199,7 +191,7 @@ router.put('/', async function(req, res) {
           'Actualización de cuenta'
         )`,
         [],
-        queryConfig
+        settings.query
       )
     }
     result.result = { MESSAGE: 'Datos actualizados' }
@@ -222,7 +214,7 @@ router.delete('/:admin/:cuenta/:desc', async function(req, res) {
   let descripcion = req.params.desc.replace("_", " ");
   let result = {result: [], errors: []};
   try {
-    conn = await oracledb.getConnection(config)
+    conn = await oracledb.getConnection(settings.conn)
     await conn.execute(
       `UPDATE USUARIO
       SET REGISTRADO = -1 
@@ -230,7 +222,7 @@ router.delete('/:admin/:cuenta/:desc', async function(req, res) {
           ID = ${cuenta}
       `,
       [],
-      queryConfig
+      settings.query
     );
     
     if(admin){
@@ -242,7 +234,7 @@ router.delete('/:admin/:cuenta/:desc', async function(req, res) {
           'Eliminación de cuenta'
         )`,
         [],
-        queryConfig
+        settings.query
       )
     }
     result.result = { MESSAGE: 'Cuenta eliminada' }

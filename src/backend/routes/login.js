@@ -2,16 +2,9 @@ var jwt = require('jsonwebtoken');
 var nodemailer = require('nodemailer');
 var express = require('express');
 var router = express.Router();
-const oracledb = require('oracledb')
-const config = {
-  user: 'kenneth',
-  password: '2109',
-  connectString: 'localhost:1521/ORCL18'
-};
-const queryConfig = {
-    outFormat: oracledb.OUT_FORMAT_OBJECT,
-    autoCommit: true,
-};
+const oracledb = require('oracledb');
+const settings = require('../public/javascripts/Settings');
+
 const EMAIL_SECRET = 'asdf1093KMnzxcvnkljvasdu09123nlasdasdf';
 
 router.post('/', async function(req, res) {
@@ -20,7 +13,7 @@ router.post('/', async function(req, res) {
   let result = {result: [], errors: []};
 
   try {
-    conn = await oracledb.getConnection(config)
+    conn = await oracledb.getConnection(settings.conn)
 
     result.result = (await conn.execute(
         `SELECT 
@@ -37,7 +30,7 @@ router.post('/', async function(req, res) {
             AND REGISTRADO = 1   
         `,
         [],
-        queryConfig
+        settings.query
     ))?.rows;
     res.status(200);
     if(result.result.length==0){
@@ -60,7 +53,7 @@ router.put('/', async function(req, res) {
   const body = req.body;
   let result = {result: [], errors: []};
   try {
-    conn = await oracledb.getConnection(config)
+    conn = await oracledb.getConnection(settings.conn)
     const {user: id} = jwt.verify(body.TOKEN, EMAIL_SECRET);
     await conn.execute(
       `UPDATE USUARIO 
@@ -69,7 +62,7 @@ router.put('/', async function(req, res) {
           ID = ${id}
       `,
       [],
-      queryConfig
+      settings.query
     );
 
     result.result = (await conn.execute(
@@ -85,7 +78,7 @@ router.put('/', async function(req, res) {
           ID = ${id}  
       `,
       [],
-      queryConfig
+      settings.query
     ))?.rows[0];
   } catch (e) {
     console.log(e);

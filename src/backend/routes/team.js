@@ -1,15 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const oracledb = require('oracledb')
-const config = {
-  user: 'kenneth',
-  password: '2109',
-  connectString: 'localhost:1521/ORCL18'
-};
-const queryConfig = {
-    outFormat: oracledb.OUT_FORMAT_OBJECT,
-    autoCommit: true,
-};
+const settings = require('../public/javascripts/Settings')
 
 router.post('/', async function(req, res) {
   let conn;
@@ -17,32 +9,23 @@ router.post('/', async function(req, res) {
   const body = req.body;
       
   try {
+    conn = await oracledb.getConnection(settings.conn);
     await conn.execute(
         `INSERT INTO USUARIO(
             FECHA_FUNDACION,
             PAIS,
+            NOMBRE,
             LOGO
         ) VALUES(
             TO_DATE('${body.FECHA_FUNDACION}', 'YYYY-MM-DD'),
             '${body.PAIS}',
+            ${body.NOMBRE},
             ${body.LOGO}
         )`,
         [],
-        queryConfig
+        settings.query
     );
-
-    let id = (await conn.execute(
-        `SELECT 
-            ID
-        FROM 
-            Usuario
-        WHERE 
-            CORREO = '${body.CORREO}'    
-        `,
-        [],
-        queryConfig
-    ))?.rows[0];
-    result.result = { MESSAGE: 'Correo enviado'};
+    result.result = { MESSAGE: 'Equipo creado'};
     res.status(200);
   } catch (err) {
       result.errors.push(err);
@@ -61,7 +44,7 @@ router.put('/', async function(req, res) {
   const cuenta = body.CUENTA;
   let result = {result: [], errors: []};
   try {
-    conn = await oracledb.getConnection(config)
+    conn = await oracledb.getConnection(settings.conn)
     await conn.execute(
       `UPDATE USUARIO 
       SET NOMBRE = '${cuenta.NOMBRE}',
@@ -78,7 +61,7 @@ router.put('/', async function(req, res) {
           ID = ${body.ID}
       `,
       [],
-      queryConfig
+      settings.query
     );
     
     if(body.AUTOR){
@@ -113,7 +96,7 @@ router.delete('/:admin/:cuenta/:desc', async function(req, res) {
   let descripcion = req.params.desc.replace("_", " ");
   let result = {result: [], errors: []};
   try {
-    conn = await oracledb.getConnection(config)
+    conn = await oracledb.getConnection(settings.conn)
     await conn.execute(
       `UPDATE USUARIO
       SET REGISTRADO = -1 

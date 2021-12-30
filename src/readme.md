@@ -2,9 +2,10 @@
 
 ## Contenido
 1. [General](#general)
-2. [Creación de cuentas](#creacion_cuentas)
-3. [Login](#login)
-4. [Usuarios](#users)
+2. [Home](#home)
+3. [Creación de cuentas](#creacion_cuentas)
+4. [Login](#login)
+5. [Usuarios](#users)
 
 
 <a id="general"></a>
@@ -16,6 +17,18 @@ Toda respuesta a una petición regresará un objeto JSON.
     result: {} (resultado exitoso de la petición),
     errors: [] (de existir algún error, se agregará a la lista)
 } 
+```
+<a id="home"></a>
+## Home
+
+### Endpoint
+### Video de presentación
+```
+localhost:3000/video
+```
+Solo ingresar lo siguiente dentro de la etiqueta `<video>`
+```html
+<source src="http://localhost:3000/video" type="video/mp4">
 ```
 
 <a id="creacion_cuentas"></a>

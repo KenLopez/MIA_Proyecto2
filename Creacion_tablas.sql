@@ -1,8 +1,10 @@
 CREATE TABLE Jugador (
 	id INTEGER GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1),
+	nombre VARCHAR2(200) NOT NULL,
 	fecha_nac DATE,
-	nacionalidad VARCHAR2(100),
-	posicion VARCHAR2(2),
+	nacionalidad VARCHAR2(100) NOT NULL,
+	posicion VARCHAR2(50) NOT NULL,
+	estado VARCHAR2(50) NOT NULL,
 	PRIMARY KEY(id)
 ); 
 
@@ -12,6 +14,7 @@ CREATE TABLE Equipo(
 	fecha_fundacion DATE NOT NULL,
 	pais VARCHAR2(50) NOT NULL,
 	logo BLOB,
+	estado VARCHAR2(50) NOT NULL,
 	PRIMARY KEY(id)
 );
 
@@ -21,7 +24,7 @@ CREATE TABLE Estadio(
 	capacidad INTEGER,
 	pais VARCHAR2(100) NOT NULL,
 	direccion VARCHAR2(100) NOT NULL,
-	estado VARCHAR2(50),
+	estado VARCHAR2(50) NOT NULL,
 	PRIMARY KEY(id)
 );
 
@@ -49,7 +52,7 @@ CREATE TABLE Director_tecnico(
 	apellido VARCHAR2(100) NOT NULL,
 	fecha_nac DATE NOT NULL,
 	nacionalidad VARCHAR2(50) NOT NULL,
-	estado VARCHAR2(30),
+	estado VARCHAR2(50) NOT NULL,
 	foto BLOB,
 	PRIMARY KEY(id)
 );

@@ -11,23 +11,23 @@ router.post('/', async function(req, res) {
   try {
     conn = await oracledb.getConnection(settings.conn);
     await conn.execute(
-        `INSERT INTO EQUIPO(
-            FECHA_FUNDACION,
-            PAIS,
+        `INSERT INTO ESTADIO(
             NOMBRE,
-            LOGO,
+            CAPACIDAD,
+            PAIS,
+            DIRECCION,
             ESTADO
         ) VALUES(
-            TO_DATE('${body.FECHA_FUNDACION}', 'YYYY-MM-DD'),
-            '${body.PAIS}',
             '${body.NOMBRE}',
-            ${body.LOGO},
+            ${body.CAPACIDAD},
+            '${body.PAIS}',
+            '${body.DIRECCION}',
             'ACTIVO'
         )`,
         [],
         settings.query
     );
-    result.result = { MESSAGE: 'Equipo creado'};
+    result.result = { MESSAGE: 'Estadio creado'};
     res.status(200);
   } catch (e) {
       console.log(e);
@@ -48,11 +48,11 @@ router.put('/', async function(req, res) {
   try {
     conn = await oracledb.getConnection(settings.conn)
     await conn.execute(
-      `UPDATE EQUIPO SET 
-        FECHA_FUNDACION = TO_DATE('${body.FECHA_FUNDACION}', 'YYYY-MM-DD'),
-        PAIS = '${body.PAIS}',
+      `UPDATE ESTADIO SET 
         NOMBRE = '${body.NOMBRE}',
-        LOGO = ${body.LOGO},
+        CAPACIDAD = ${body.CAPACIDAD},
+        PAIS = '${body.PAIS}',
+        DIRECCION = '${body.DIRECCION}'',
         ESTADO = '${body.ESTADO}'
         WHERE 
           ID = ${body.ID}
@@ -80,15 +80,15 @@ router.delete('/:id', async function(req, res) {
   try {
     conn = await oracledb.getConnection(settings.conn)
     await conn.execute(
-      `UPDATE EQUIPO 
-      SET ESTADO = 'BORRADO' 
+      `UPDATE ESTADIO
+      SET ESTADO = 'BORRADO'
       WHERE 
           ID = ${id}
       `,
       [],
       settings.query
     );
-    result.result = { MESSAGE: 'Equipo eliminado' }
+    result.result = { MESSAGE: 'Estadio eliminado' }
   } catch (e) {
     console.log(e);
     result.errors.push('Error de conexión con BD');
@@ -110,14 +110,14 @@ router.get('/', async function(req, res) {
     result.result = (await conn.execute(
       `SELECT 
         ID,
-        TO_CHAR(FECHA_FUNDACION, 'DD-MM-YYYY') AS FECHA_FUNDACION,
-        PAIS,
         NOMBRE,
-        LOGO,
+        CAPACIDAD,
+        PAIS,
+        DIRECCION,
         ESTADO
       FROM 
-        EQUIPO
-      WHERE 
+        ESTADIO
+      WHERE
         ESTADO <> 'BORRADO'
       `,
       [],
@@ -146,10 +146,10 @@ router.get('/:id', async function(req, res) {
     result.result = (await conn.execute(
       `SELECT 
         ID,
-        TO_CHAR(FECHA_FUNDACION, 'DD-MM-YYYY') AS FECHA_FUNDACION,
-        PAIS,
         NOMBRE,
-        LOGO,
+        CAPACIDAD,
+        PAIS,
+        DIRECCION,
         ESTADO
       FROM 
         EQUIPO

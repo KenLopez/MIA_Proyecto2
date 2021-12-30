@@ -11,23 +11,23 @@ router.post('/', async function(req, res) {
   try {
     conn = await oracledb.getConnection(settings.conn);
     await conn.execute(
-        `INSERT INTO EQUIPO(
-            FECHA_FUNDACION,
-            PAIS,
+        `INSERT INTO JUGADOR(
             NOMBRE,
-            LOGO,
+            FECHA_NAC,
+            NACIONALIDAD,
+            POSICION,
             ESTADO
         ) VALUES(
-            TO_DATE('${body.FECHA_FUNDACION}', 'YYYY-MM-DD'),
-            '${body.PAIS}',
             '${body.NOMBRE}',
-            ${body.LOGO},
+            TO_DATE('${body.FECHA_NAC}', 'YYYY-MM-DD'),
+            '${body.NACIONALIDAD}',
+            '${body.POSICION}',
             'ACTIVO'
         )`,
         [],
         settings.query
     );
-    result.result = { MESSAGE: 'Equipo creado'};
+    result.result = { MESSAGE: 'Jugador creado'};
     res.status(200);
   } catch (e) {
       console.log(e);
@@ -48,11 +48,11 @@ router.put('/', async function(req, res) {
   try {
     conn = await oracledb.getConnection(settings.conn)
     await conn.execute(
-      `UPDATE EQUIPO SET 
-        FECHA_FUNDACION = TO_DATE('${body.FECHA_FUNDACION}', 'YYYY-MM-DD'),
-        PAIS = '${body.PAIS}',
+      `UPDATE JUGADOR SET 
+        FECHA_NAC = TO_DATE('${body.FECHA_NAC}', 'YYYY-MM-DD'),
+        NACIONALIDAD = '${body.NACIONALIDAD}',
         NOMBRE = '${body.NOMBRE}',
-        LOGO = ${body.LOGO},
+        POSICION = '${body.POSICION}',
         ESTADO = '${body.ESTADO}'
         WHERE 
           ID = ${body.ID}
@@ -80,7 +80,7 @@ router.delete('/:id', async function(req, res) {
   try {
     conn = await oracledb.getConnection(settings.conn)
     await conn.execute(
-      `UPDATE EQUIPO 
+      `UPDATE JUGADOR
       SET ESTADO = 'BORRADO' 
       WHERE 
           ID = ${id}
@@ -88,7 +88,7 @@ router.delete('/:id', async function(req, res) {
       [],
       settings.query
     );
-    result.result = { MESSAGE: 'Equipo eliminado' }
+    result.result = { MESSAGE: 'Jugador eliminado' }
   } catch (e) {
     console.log(e);
     result.errors.push('Error de conexión con BD');
@@ -110,14 +110,14 @@ router.get('/', async function(req, res) {
     result.result = (await conn.execute(
       `SELECT 
         ID,
-        TO_CHAR(FECHA_FUNDACION, 'DD-MM-YYYY') AS FECHA_FUNDACION,
-        PAIS,
+        TO_CHAR(FECHA_NAC, 'DD-MM-YYYY') AS FECHA_NAC,
+        NACIONALIDAD,
         NOMBRE,
-        LOGO,
+        POSICION,
         ESTADO
       FROM 
-        EQUIPO
-      WHERE 
+        JUGADOR
+      WHERE
         ESTADO <> 'BORRADO'
       `,
       [],
@@ -146,10 +146,10 @@ router.get('/:id', async function(req, res) {
     result.result = (await conn.execute(
       `SELECT 
         ID,
-        TO_CHAR(FECHA_FUNDACION, 'DD-MM-YYYY') AS FECHA_FUNDACION,
-        PAIS,
+        TO_CHAR(FECHA_NAC, 'DD-MM-YYYY') AS FECHA_NAC,
+        NACIONALIDAD,
         NOMBRE,
-        LOGO,
+        POSICION,
         ESTADO
       FROM 
         EQUIPO

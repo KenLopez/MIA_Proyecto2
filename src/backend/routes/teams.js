@@ -106,7 +106,7 @@ router.get('/', async function(req, res) {
     result.result = (await conn.execute(
       `SELECT 
         ID,
-        FECHA_FUNDACION,
+        TO_CHAR(FECHA_FUNDACION, 'DD-MM-YYYY') AS FECHA_FUNDACION,
         PAIS,
         NOMBRE,
         LOGO
@@ -139,7 +139,7 @@ router.get('/:id', async function(req, res) {
     result.result = (await conn.execute(
       `SELECT 
         ID,
-        FECHA_FUNDACION,
+        TO_CHAR(FECHA_FUNDACION, 'DD-MM-YYYY') AS FECHA_FUNDACION,
         PAIS,
         NOMBRE,
         LOGO

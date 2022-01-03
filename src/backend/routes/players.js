@@ -19,7 +19,7 @@ router.post('/', async function(req, res) {
             ESTADO
         ) VALUES(
             '${body.NOMBRE}',
-            TO_DATE('${body.FECHA_NAC}', 'YYYY-MM-DD'),
+            TO_DATE('${body.FECHA_NAC}', 'YYYY/MM/DD'),
             '${body.NACIONALIDAD}',
             '${body.POSICION}',
             'ACTIVO'
@@ -49,7 +49,7 @@ router.put('/', async function(req, res) {
     conn = await oracledb.getConnection(settings.conn)
     await conn.execute(
       `UPDATE JUGADOR SET 
-        FECHA_NAC = TO_DATE('${body.FECHA_NAC}', 'YYYY-MM-DD'),
+        FECHA_NAC = TO_DATE('${body.FECHA_NAC}', 'YYYY/MM/DD'),
         NACIONALIDAD = '${body.NACIONALIDAD}',
         NOMBRE = '${body.NOMBRE}',
         POSICION = '${body.POSICION}',
@@ -110,7 +110,7 @@ router.get('/', async function(req, res) {
     result.result = (await conn.execute(
       `SELECT 
         ID,
-        TO_CHAR(FECHA_NAC, 'DD-MM-YYYY') AS FECHA_NAC,
+        TO_CHAR(FECHA_NAC, 'YYYY/MM/DD') AS FECHA_NAC,
         NACIONALIDAD,
         NOMBRE,
         POSICION,
@@ -146,7 +146,7 @@ router.get('/:id', async function(req, res) {
     result.result = (await conn.execute(
       `SELECT 
         ID,
-        TO_CHAR(FECHA_NAC, 'DD-MM-YYYY') AS FECHA_NAC,
+        TO_CHAR(FECHA_NAC, 'YYYY/MM/DD') AS FECHA_NAC,
         NACIONALIDAD,
         NOMBRE,
         POSICION,

@@ -11,23 +11,25 @@ router.post('/', async function(req, res) {
   try {
     conn = await oracledb.getConnection(settings.conn);
     await conn.execute(
-        `INSERT INTO ESTADIO(
+        `INSERT INTO DIRECTOR_TECNICO(
             NOMBRE,
-            CAPACIDAD,
-            PAIS,
-            DIRECCION,
-            ESTADO
+            APELLIDO,
+            FECHA_NAC,
+            NACIONALIDAD,
+            ESTADO,
+            FOTO
         ) VALUES(
             '${body.NOMBRE}',
-            ${body.CAPACIDAD},
-            '${body.PAIS}',
-            '${body.DIRECCION}',
-            'ACTIVO'
+            '${body.APELLIDO}',
+            TO_DATE('${body.FECHA_NAC}', 'YYYY/MM/DD'),
+            '${body.NACIONALIDAD}',
+            'ACTIVO',
+            ${body.FOTO}
         )`,
         [],
         settings.query
     );
-    result.result = { MESSAGE: 'Estadio creado'};
+    result.result = { MESSAGE: 'DT creado'};
     res.status(200);
   } catch (e) {
       console.log(e);
@@ -48,12 +50,13 @@ router.put('/', async function(req, res) {
   try {
     conn = await oracledb.getConnection(settings.conn)
     await conn.execute(
-      `UPDATE ESTADIO SET 
+      `UPDATE DIRECTOR_TECNICO SET 
         NOMBRE = '${body.NOMBRE}',
-        CAPACIDAD = ${body.CAPACIDAD},
-        PAIS = '${body.PAIS}',
-        DIRECCION = '${body.DIRECCION}',
-        ESTADO = '${body.ESTADO}'
+        APELLIDO = '${body.APELLIDO}',
+        FECHA_NAC = '${body.FECHA_NAC}',
+        NACIONALIDAD = '${body.NACIONALIDAD}',
+        ESTADO = '${body.ESTADO}',
+        FOTO = '${body.FOTO}
         WHERE 
           ID = ${body.ID}
       `,
@@ -80,7 +83,7 @@ router.delete('/:id', async function(req, res) {
   try {
     conn = await oracledb.getConnection(settings.conn)
     await conn.execute(
-      `UPDATE ESTADIO
+      `UPDATE DIRECTOR_TECNICO
       SET ESTADO = 'BORRADO'
       WHERE 
           ID = ${id}
@@ -88,7 +91,7 @@ router.delete('/:id', async function(req, res) {
       [],
       settings.query
     );
-    result.result = { MESSAGE: 'Estadio eliminado' }
+    result.result = { MESSAGE: 'DT eliminado' }
   } catch (e) {
     console.log(e);
     result.errors.push('Error de conexión con BD');
@@ -111,12 +114,13 @@ router.get('/', async function(req, res) {
       `SELECT 
         ID,
         NOMBRE,
-        CAPACIDAD,
-        PAIS,
-        DIRECCION,
-        ESTADO
+        APELLIDO,
+        TO_CHAR(FECHA_NAC, 'YYYY/MM/DD') AS FECHA_NAC,
+        NACIONALIDAD,
+        ESTADO,
+        FOTO
       FROM 
-        ESTADIO
+        DIRECTOR_TECNICO
       WHERE
         ESTADO <> 'BORRADO'
       `,
@@ -147,12 +151,13 @@ router.get('/:id', async function(req, res) {
       `SELECT 
         ID,
         NOMBRE,
-        CAPACIDAD,
-        PAIS,
-        DIRECCION,
-        ESTADO
+        APELLIDO,
+        TO_CHAR(FECHA_NAC, 'YYYY/MM/DD') AS FECHA_NAC,
+        NACIONALIDAD,
+        ESTADO,
+        FOTO
       FROM 
-        EQUIPO
+        DIRECTOR_TECNICO
       WHERE
         ID = ${Number(id)}
         AND ESTADO <> 'BORRADO'

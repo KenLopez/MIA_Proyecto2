@@ -18,7 +18,7 @@ router.post('/', async function(req, res) {
             LOGO,
             ESTADO
         ) VALUES(
-            TO_DATE('${body.FECHA_FUNDACION}', 'YYYY-MM-DD'),
+            TO_DATE('${body.FECHA_FUNDACION}', 'YYYY/MM/DD'),
             '${body.PAIS}',
             '${body.NOMBRE}',
             ${body.LOGO},
@@ -49,7 +49,7 @@ router.put('/', async function(req, res) {
     conn = await oracledb.getConnection(settings.conn)
     await conn.execute(
       `UPDATE EQUIPO SET 
-        FECHA_FUNDACION = TO_DATE('${body.FECHA_FUNDACION}', 'YYYY-MM-DD'),
+        FECHA_FUNDACION = TO_DATE('${body.FECHA_FUNDACION}', 'YYYY/MM/DD'),
         PAIS = '${body.PAIS}',
         NOMBRE = '${body.NOMBRE}',
         LOGO = ${body.LOGO},
@@ -110,7 +110,7 @@ router.get('/', async function(req, res) {
     result.result = (await conn.execute(
       `SELECT 
         ID,
-        TO_CHAR(FECHA_FUNDACION, 'DD-MM-YYYY') AS FECHA_FUNDACION,
+        TO_CHAR(FECHA_FUNDACION, 'YYYY/MM/DD') AS FECHA_FUNDACION,
         PAIS,
         NOMBRE,
         LOGO,
@@ -146,7 +146,7 @@ router.get('/:id', async function(req, res) {
     result.result = (await conn.execute(
       `SELECT 
         ID,
-        TO_CHAR(FECHA_FUNDACION, 'DD-MM-YYYY') AS FECHA_FUNDACION,
+        TO_CHAR(FECHA_FUNDACION, 'YYYY/MM/DD') AS FECHA_FUNDACION,
         PAIS,
         NOMBRE,
         LOGO,

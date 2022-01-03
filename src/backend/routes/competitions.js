@@ -11,23 +11,23 @@ router.post('/', async function(req, res) {
   try {
     conn = await oracledb.getConnection(settings.conn);
     await conn.execute(
-        `INSERT INTO ESTADIO(
+        `INSERT INTO COMPETENCIA(
             NOMBRE,
-            CAPACIDAD,
-            PAIS,
-            DIRECCION,
+            ANIO,
+            TIPO,
+            CAMPEON,
             ESTADO
         ) VALUES(
             '${body.NOMBRE}',
-            ${body.CAPACIDAD},
-            '${body.PAIS}',
-            '${body.DIRECCION}',
+            ${body.ANIO},
+            '${body.TIPO}',
+            ${body.CAMPEON},
             'ACTIVO'
         )`,
         [],
         settings.query
     );
-    result.result = { MESSAGE: 'Estadio creado'};
+    result.result = { MESSAGE: 'Competencia creada'};
     res.status(200);
   } catch (e) {
       console.log(e);
@@ -48,11 +48,11 @@ router.put('/', async function(req, res) {
   try {
     conn = await oracledb.getConnection(settings.conn)
     await conn.execute(
-      `UPDATE ESTADIO SET 
+      `UPDATE COMPETENCIA SET 
         NOMBRE = '${body.NOMBRE}',
-        CAPACIDAD = ${body.CAPACIDAD},
-        PAIS = '${body.PAIS}',
-        DIRECCION = '${body.DIRECCION}',
+        ANIO = '${body.ANIO}',
+        TIPO = '${body.TIPO}',
+        CAMPEON = '${body.CAMPEON}',
         ESTADO = '${body.ESTADO}'
         WHERE 
           ID = ${body.ID}
@@ -80,7 +80,7 @@ router.delete('/:id', async function(req, res) {
   try {
     conn = await oracledb.getConnection(settings.conn)
     await conn.execute(
-      `UPDATE ESTADIO
+      `UPDATE COMPETENCIA
       SET ESTADO = 'BORRADO'
       WHERE 
           ID = ${id}
@@ -88,7 +88,7 @@ router.delete('/:id', async function(req, res) {
       [],
       settings.query
     );
-    result.result = { MESSAGE: 'Estadio eliminado' }
+    result.result = { MESSAGE: 'Competencia eliminada' }
   } catch (e) {
     console.log(e);
     result.errors.push('Error de conexión con BD');
@@ -111,12 +111,12 @@ router.get('/', async function(req, res) {
       `SELECT 
         ID,
         NOMBRE,
-        CAPACIDAD,
+        ANIO,
+        TIPO,
         PAIS,
-        DIRECCION,
-        ESTADO
+        CAMPEON
       FROM 
-        ESTADIO
+        DIRECTOR_TECNICO
       WHERE
         ESTADO <> 'BORRADO'
       `,
@@ -147,12 +147,12 @@ router.get('/:id', async function(req, res) {
       `SELECT 
         ID,
         NOMBRE,
-        CAPACIDAD,
+        ANIO,
+        TIPO,
         PAIS,
-        DIRECCION,
-        ESTADO
+        CAMPEON
       FROM 
-        EQUIPO
+        DIRECTOR_TECNICO
       WHERE
         ID = ${Number(id)}
         AND ESTADO <> 'BORRADO'

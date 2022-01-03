@@ -12,6 +12,7 @@ var loginRouter = require('./routes/login');
 var teamsRouter = require('./routes/teams');
 var playersRouter = require('./routes/players');
 var stadiumRouter = require('./routes/stadiums');
+var directorsRouter = require('./routes/directors');
 
 var app = express();
 
@@ -33,6 +34,7 @@ app.use('/login', loginRouter);
 app.use('/teams', teamsRouter);
 app.use('/players', playersRouter);
 app.use('/stadiums', stadiumRouter);
+app.use('/directors', directorsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

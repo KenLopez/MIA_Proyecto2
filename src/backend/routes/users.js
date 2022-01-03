@@ -26,7 +26,7 @@ router.get('/', async function(req, res, next) {
         CORREO,
         TELEFONO,
         GENERO,
-        TO_CHAR(FECHA_NAC, 'DD-MM-YYYY') AS FECHA_NAC,
+        TO_CHAR(FECHA_NAC, 'YYYY/MM/DD') AS FECHA_NAC,
         DIRECCION,
         PAIS,
         TIPO,

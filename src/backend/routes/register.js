@@ -16,7 +16,7 @@ const EMAIL_SECRET = 'asdf1093KMnzxcvnkljvasdu09123nlasdasdf';
 
 router.post('/', async function(req, res) {
     let conn;
-    let result = {result: [], errors: []};
+    var result;
     const body = req.body;
     let today = new Date();
     today = `${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}`;
@@ -30,7 +30,7 @@ router.post('/', async function(req, res) {
                 APELLIDOS,
                 CORREO
             FROM 
-                Usuario
+                USUARIO
             WHERE 
                 CORREO = '${body.CORREO}' 
                 AND REGISTRADO <> -1   
@@ -39,7 +39,8 @@ router.post('/', async function(req, res) {
             settings.query
         ))?.rows.length>0;
         if(exists){
-            result.errors.push('Correo ya fue registrado.');
+            result = 'Correo ya fue registrado.';
+            res.status(500)
         }else{
             let confirmation = body.TIPO == 'A' || body.TIPO == 'E';
             await conn.execute(
@@ -97,12 +98,12 @@ router.post('/', async function(req, res) {
                   expiresIn: '1d',
                 },
                 (err, emailToken) => {
-                  const url = `http://localhost:3000/confirmation/${emailToken}`;
+                  const url = `http://localhost:4200/confirmation/${emailToken}`;
             
                   transporter.sendMail({
                     from: 'Soccer Statistics ⚽ <soccerstatsteam@gmail.com>',
                     to: body.CORREO,
-                    subject: 'Confirm Email',
+                    subject: 'Confirmación de cuenta',
                     html: confirmation
                     ?`<p>¡Bienvenido al equipo de Soccer Statistics!</p><br/>
                     <p>Tu cuenta de ${body.TIPO == 'A'?'ADMINISTRADOR':'EMPLEADO'} ha sido registrada con éxito.</p><br/>
@@ -142,11 +143,11 @@ router.post('/', async function(req, res) {
                 settings.query
               )
             }
-            result.result = { MESSAGE: 'Correo enviado'};
+            result = 'Correo enviado';
+            res.status(200);
         }
-        res.status(200);
     } catch (err) {
-        result.errors.push(err);
+        result = err;
         res.status(500);
     } finally {
         if (conn) { 
@@ -160,7 +161,7 @@ router.put('/', async function(req, res) {
   let conn;
   const body = req.body;
   const cuenta = body.CUENTA;
-  let result = {result: [], errors: []};
+  var result;
   try {
     conn = await oracledb.getConnection(settings.conn)
     await conn.execute(
@@ -194,10 +195,10 @@ router.put('/', async function(req, res) {
         settings.query
       )
     }
-    result.result = { MESSAGE: 'Datos actualizados' }
+    result = 'Datos actualizados';
   } catch (e) {
     console.log(e);
-    result.errors.push('Token no válido');
+    result = 'Token no válido';
     res.status(500);
   } finally {
     if (conn) { 
@@ -212,7 +213,7 @@ router.delete('/:admin/:cuenta/:desc', async function(req, res) {
   let admin = Number(req.params.admin);
   let cuenta = Number(req.params.cuenta);
   let descripcion = req.params.desc.replace("_", " ");
-  let result = {result: [], errors: []};
+  var result;
   try {
     conn = await oracledb.getConnection(settings.conn)
     await conn.execute(
@@ -237,10 +238,10 @@ router.delete('/:admin/:cuenta/:desc', async function(req, res) {
         settings.query
       )
     }
-    result.result = { MESSAGE: 'Cuenta eliminada' }
+    result = 'Cuenta eliminada';
   } catch (e) {
     console.log(e);
-    result.errors.push('Token no válido');
+    result = 'Token no válido';
     res.status(500);
   } finally {
     if (conn) { 

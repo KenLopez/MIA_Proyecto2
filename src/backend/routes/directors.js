@@ -5,7 +5,7 @@ const settings = require('../public/javascripts/Settings')
 
 router.post('/', async function(req, res) {
   let conn;
-  let result = {result: [], errors: []};
+  var result;
   const body = req.body;
       
   try {
@@ -29,11 +29,11 @@ router.post('/', async function(req, res) {
         [],
         settings.query
     );
-    result.result = { MESSAGE: 'DT creado'};
+    result = 'DT creado';
     res.status(200);
   } catch (e) {
       console.log(e);
-      result.errors.push(e);
+      result = e;
       res.status(500);
   } finally {
       if (conn) { 
@@ -46,7 +46,7 @@ router.post('/', async function(req, res) {
 router.put('/', async function(req, res) {
   let conn;
   const body = req.body;
-  let result = {result: [], errors: []};
+  var result;
   try {
     conn = await oracledb.getConnection(settings.conn)
     await conn.execute(
@@ -63,10 +63,10 @@ router.put('/', async function(req, res) {
       [],
       settings.query
     );
-    result.result = { MESSAGE: 'Datos actualizados' }
+    result = 'Datos actualizados';
   } catch (e) {
     console.log(e);
-    result.errors.push('Error de conexión con BD');
+    result = 'Error de conexión con BD';
     res.status(500);
   } finally {
     if (conn) { 
@@ -78,7 +78,7 @@ router.put('/', async function(req, res) {
 
 router.delete('/:id', async function(req, res) {
   let conn;
-  let result = {result: [], errors: []};
+  var result;
   const id = req.params.id;
   try {
     conn = await oracledb.getConnection(settings.conn)
@@ -91,10 +91,10 @@ router.delete('/:id', async function(req, res) {
       [],
       settings.query
     );
-    result.result = { MESSAGE: 'DT eliminado' }
+    result = 'DT eliminado';
   } catch (e) {
     console.log(e);
-    result.errors.push('Error de conexión con BD');
+    result = 'Error de conexión con BD';
     res.status(500);
   } finally {
     if (conn) { 
@@ -106,11 +106,11 @@ router.delete('/:id', async function(req, res) {
 
 router.get('/', async function(req, res) {
   let conn;
-  let result = {result: [], errors: []};
+  var result;
   try {
     conn = await oracledb.getConnection(settings.conn)
     
-    result.result = (await conn.execute(
+    result = (await conn.execute(
       `SELECT 
         ID,
         NOMBRE,
@@ -130,7 +130,7 @@ router.get('/', async function(req, res) {
     
   } catch (e) {
     console.log(e);
-    result.errors.push('Error de conexión con BD');
+    result = 'Error de conexión con BD';
     res.status(500);
   } finally {
     if (conn) { 
@@ -142,12 +142,12 @@ router.get('/', async function(req, res) {
 
 router.get('/:id', async function(req, res) {
   let conn;
-  let result = {result: [], errors: []};
+  var result;
   const id = req.params.id;
   try {
     conn = await oracledb.getConnection(settings.conn)
 
-    result.result = (await conn.execute(
+    result = (await conn.execute(
       `SELECT 
         ID,
         NOMBRE,
@@ -168,7 +168,7 @@ router.get('/:id', async function(req, res) {
     
   } catch (e) {
     console.log(e);
-    result.errors.push('Error de conexión con BD');
+    result = 'Error de conexión con BD';
     res.status(500);
   } finally {
     if (conn) { 

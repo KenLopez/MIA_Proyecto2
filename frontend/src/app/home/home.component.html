@@ -1,13 +1,11 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-danger bg-gradient">
+<nav class="navbar navbar-expand-lg navbar-dark bg-danger bg-gradient">
     <div class="container-fluid">
-        <a class="navbar-brand fs-1" href="/home">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Soccerball.svg/2048px-Soccerball.svg.png" alt="" width="24" height="24" class="d-inline-block align-text-top">
-            SOCCER STATS
+        <a class="navbar-brand fs-1" routerLink="/home" style="cursor: pointer;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Soccerball.svg/2048px-Soccerball.svg.png" alt="" width="50" height="50" class="d-inline-block align-text-top">
+            <h2 class="float-right mt-2 pl-2">SOCCER STATS - HOME</h2>
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <button class="btn btn-outline-light" type="submit">Sign-In</button>
+        <h2 class="text-light mt-1">¡Únete al juego!</h2>
+        <button class="btn btn-lg btn-outline-light" routerLink="/signin">Registrarse</button>
     </div>
 </nav>
 <div class="container">
@@ -16,10 +14,10 @@
             <video controls autoplay>
                 <source src="http://localhost:3000/video" type="video/mp4">
             </video>
-          </div>
+        </div>
     </div>
 </div>
-<div class="row mt-3 mx-3">
+<div class="row mt-3 mx-3 mb-4">
     <div class="col-md-4 col-12 px-3">
         <div class="card">
             <h5 class="card-header text-center bg-danger text-light">Visión</h5>
@@ -38,13 +36,13 @@
     </div>
     <div class="col-md-4 col-12 px-3">
         <div class="card">
-            <h5 class="card-header text-center bg-danger text-light pb-0">Acerca de</h5>
+            <h5 class="card-header text-center bg-danger text-light">Acerca de</h5>
             <div class="card-body">
-                <p class="mb-0">Somos una compañía especializada en la recopilación e investigación de datos relacionados con partidos, jugadores, competiones, entrenadores y equipos de fútbol.</p>
+                <p class="mb-0 pb-0">Somos una compañía especializada en la recopilación e investigación de datos relacionados con partidos, jugadores, competiones, entrenadores y equipos de fútbol.</p>
             </div>
         </div>
     </div>
 </div>
-<div class="fixed-bottom bg-dark text-light py-3">
+<div class="bg-dark text-light py-3">
     <p class="fs-2 mb-0 text-center">Contáctanos: soccerstatsteam@gmail.com</p>
 </div>

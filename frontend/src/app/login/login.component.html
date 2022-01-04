@@ -1,0 +1,59 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-danger bg-gradient">
+    <div class="container-fluid">
+        <a class="navbar-brand fs-1" routerLink="/home" style="cursor: pointer;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Soccerball.svg/2048px-Soccerball.svg.png" alt="" width="50" height="50" class="d-inline-block align-text-top">
+            <h2 class="float-right mt-2 pl-2">SOCCER STATS - LOGIN</h2>
+        </a>
+    </div>
+</nav>
+<div class="container pt-5">
+    <form class="card" [formGroup]="form" (submit)="submit()" *blockUI="'form-section'">
+        <h3 class="card-header bg-info text-light">Acceder a cuenta</h3>
+        <div class="row mx-5 mt-3 pb-3">
+            <div class="form-group col-md-6 col-12">
+                <label for="correo">Correo:</label>
+                <input 
+                    class="form-control" 
+                    id="correo"
+                    formControlName="CORREO"
+                />
+                <small class="text-danger" *ngIf="submitted && f['CORREO'].errors">*Este campo es requerido</small>
+            </div>
+            
+            <div class="form-group col-md-6 col-12">
+                <label for="password">Contraseña:</label>
+                
+                <div class="input-group">
+                    <input 
+                        class="form-control" 
+                        id="password"
+                        formControlName="CLAVE"
+                        [type]="f['VISIBLE'].value?'text':'password'"
+                    />
+                    <div class="input-group-append">
+                        <button 
+                            class="btn btn-outline-info" 
+                            (click)="toggleVisibility()" 
+                            type="button"
+                            [ngClass]="{ 'active': f['VISIBLE'].value }"
+                        >
+                            <fa-icon [icon]="faEye"></fa-icon>
+                        </button>
+                    </div>
+                </div>
+                <small class="text-danger" *ngIf="submitted && f['CLAVE'].errors">*Este campo es requerido</small>
+            </div>
+            <div class="form-group col-12">
+                <div class="text-center pt-3">
+                    <button type="button" class="btn btn-outline-info" type="submit">Ingresar</button>
+                </div>
+                <small class="text-danger" *ngIf="error">{{ error }}</small>
+            </div>
+        </div>
+    </form>
+    <div class="pt-4">
+        <p class="text-center fs-2">
+            ¿No tienes cuenta? <a routerLink="/signin">Registrarse</a>
+        </p>
+    </div>
+</div>

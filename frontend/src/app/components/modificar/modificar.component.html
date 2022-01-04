@@ -1,0 +1,330 @@
+<div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle selector" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Elige una opcion para modificar
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <a (click)="set_opcion_tabla('equipo')" class="dropdown-item">Equipo</a>
+      <a (click)="set_opcion_tabla('jugador')" class="dropdown-item">Jugador</a>
+      <a (click)="set_opcion_tabla('director')" class="dropdown-item">Director tecnico</a>
+      <a (click)="set_opcion_tabla('estadio')" class="dropdown-item">Estadio</a>
+      <a (click)="set_opcion_tabla('competicion')" class="dropdown-item">Competicion</a>
+      <a (click)="set_opcion_tabla('partido')" class="dropdown-item">Partido</a>
+      <a (click)="set_opcion_tabla('usuario')" class="dropdown-item">Usuario</a>
+    </div>
+  
+
+    <!-- EQUIPO -->
+    <div *ngIf="opcion == 'equipo'">
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Ingrese el nombre del equipo: </span>
+        </div>
+        <input [(ngModel)]="nombre_equipo" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+      </div>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Ingrese el pais del equipo: </span>
+        </div>
+        <input [(ngModel)]="pais_equipo" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+      </div>
+
+      <button (click)="get_equpipo()" type="button" class="btn btn-primary">Buscar</button>
+
+      <table class="table table-dark">
+        <thead>
+          <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Pais</th>
+            <th scope="col">Fecha fundacion</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody *ngIf="registro != null">
+          <tr>
+            <td><input [(ngModel)]="registro.NOMBRE" type="text" class="form-control" placeholder="{{registro.NOMBRE}}"></td>
+            <td><input [(ngModel)]="registro.PAIS" type="text" class="form-control" placeholder="{{registro.PAIS}}"></td>
+            <td><input [(ngModel)]="registro.FECHA" type="text" class="form-control" placeholder="{{registro.FECHA_FUN}}"></td>
+            <th scope="col">
+                <button (click)="modificar_equipo()" type="button" class="btn btn-warning">Modficiar</button>
+            </th> 
+          </tr>
+        </tbody>
+      </table>
+   </div>
+
+
+  <!-- jugador -->
+  <div *ngIf="opcion == 'jugador'">
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text">Ingrese el nombre del jugador: </span>
+    </div>
+    <input [(ngModel)]="nombre_jugador" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+  </div>
+
+  <button (click)="get_jugador()" type="button" class="btn btn-primary">Buscar</button>
+
+  <table class="table table-dark">
+    <thead>
+      <tr>
+        <th scope="col">Nombre</th>
+        <th scope="col">Fecha Nacimiento</th>
+        <th scope="col">Nacionalidad</th>
+        <th scope="col">Posicion</th>
+        <th scope="col">Equipo</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody *ngIf="registro != null">
+      <tr>
+        <td><input [(ngModel)]="registro.NOMBRE" type="text" class="form-control" placeholder="{{registro.NOMBRE}}"></td>
+        <td><input [(ngModel)]="registro.FECHA_NAC" type="text" class="form-control" placeholder="{{registro.FECHA_NAC}}"></td>
+        <td><input [(ngModel)]="registro.NACIONALIDAD" type="text" class="form-control" placeholder="{{registro.NACIONALIDAD}}"></td>
+        <td><input [(ngModel)]="registro.POSICION" type="text" class="form-control" placeholder="{{registro.POSICION}}"></td>
+        <td><input [(ngModel)]="registro.IDEQUIPO" type="text" class="form-control" placeholder="{{registro.IDEQUIPO}}"></td>
+        <th scope="col">
+            <button (click)="modificar_jugador()" type="button" class="btn btn-warning">Modficiar</button>
+        </th> 
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+  <!-- Director tecnico -->
+  <div *ngIf="opcion == 'director'">
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+          <span class="input-group-text">Ingrese el nombre del director: </span>
+      </div>
+      <input [(ngModel)]="nombre_director" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+    </div>
+
+    <button (click)="get_director()" type="button" class="btn btn-primary">Buscar</button>
+
+    <table class="table table-dark">
+      <thead>
+        <tr>
+          <th scope="col">Nombre</th>
+          <th scope="col">Fecha Nacimiento</th>
+          <th scope="col">Pais</th>
+          <th scope="col">Nacionalidad</th>
+          <th scope="col">Estado</th>
+          <th scope="col">Foto</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody *ngIf="registro != null">
+        <tr>
+          <td><input [(ngModel)]="registro.NOMBRE" type="text" class="form-control" placeholder="{{registro.NOMBRE}}"></td>
+          <td><input [(ngModel)]="registro.FECHA_NAC" type="text" class="form-control" placeholder="{{registro.FECHA_NAC}}"></td>
+          <td><input [(ngModel)]="registro.PAIS" type="text" class="form-control" placeholder="{{registro.PAIS}}"></td>
+          <td><input [(ngModel)]="registro.NACIONALIDAD" type="text" class="form-control" placeholder="{{registro.NACIONALIDAD}}"></td>
+          <td><input [(ngModel)]="registro.ESTADO" type="text" class="form-control" placeholder="{{registro.ESTADO}}"></td>
+          <td><input [(ngModel)]="registro.FOTO" type="text" class="form-control" placeholder="{{registro.FOTO}}"></td>
+          <th scope="col">
+              <button (click)="modificar_director()" type="button" class="btn btn-warning">Modficiar</button>
+          </th> 
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+    <!-- Estadio -->
+    <div *ngIf="opcion == 'estadio'">
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Ingrese el nombre del estadio: </span>
+        </div>
+        <input [(ngModel)]="nombre_estadio" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+      </div>
+
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Ingrese el pais del estadio: </span>
+        </div>
+        <input [(ngModel)]="pais_estadio" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+      </div>
+  
+      <button (click)="get_estadio()" type="button" class="btn btn-primary">Buscar</button>
+  
+      <table class="table table-dark">
+        <thead>
+          <tr>
+            <th scope="col">Pais</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Fecha ignauracion</th>
+            <th scope="col">Capacidad</th>
+            <th scope="col">Direccion</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Fotto</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody *ngIf="registro != null">
+          <tr>
+            <td><input [(ngModel)]="registro.PAIS" type="text" class="form-control" placeholder="{{registro.PAIS}}"></td>
+            <td><input [(ngModel)]="registro.NOMBRE" type="text" class="form-control" placeholder="{{registro.NOMBRE}}"></td>
+            <td><input [(ngModel)]="registro.FECHA_ING" type="text" class="form-control" placeholder="{{registro.FECHA_ING}}"></td>
+            <td><input [(ngModel)]="registro.CAPACIDAD" type="text" class="form-control" placeholder="{{registro.CAPACIDAD}}"></td>
+            <td><input [(ngModel)]="registro.DIRECCION" type="text" class="form-control" placeholder="{{registro.DIRECCION}}"></td>
+            <td><input [(ngModel)]="registro.ESTADO" type="text" class="form-control" placeholder="{{registro.ESTADO}}"></td>
+            <td><input [(ngModel)]="registro.FOTO" type="text" class="form-control" placeholder="{{registro.FOTO}}"></td>
+            <th scope="col">
+                <button (click)="modificar_estadio()" type="button" class="btn btn-warning">Modficiar</button>
+            </th> 
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+
+   <!-- Competicion -->
+   <div *ngIf="opcion == 'competicion'">
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+          <span class="input-group-text">Ingrese el nombre de la competicion: </span>
+      </div>
+      <input [(ngModel)]="nombre_competicion" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+    </div>
+
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+          <span class="input-group-text">Ingrese el pais de la competicion: </span>
+      </div>
+      <input [(ngModel)]="pais_competicion" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+    </div>
+
+    <button (click)="get_competicion()" type="button" class="btn btn-primary">Buscar</button>
+
+    <table class="table table-dark">
+      <thead>
+        <tr>
+          <th scope="col">Nombre</th>
+          <th scope="col">Año</th>
+          <th scope="col">Tipo</th>
+          <th scope="col">Pais</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody *ngIf="registro != null">
+        <tr>
+          <td><input [(ngModel)]="registro.NOMBRE" type="text" class="form-control" placeholder="{{registro.PAIS}}"></td>
+          <td><input [(ngModel)]="registro.ANIO" type="text" class="form-control" placeholder="{{registro.ANIO}}"></td>
+          <td><input [(ngModel)]="registro.TIPO" type="text" class="form-control" placeholder="{{registro.TIPO}}"></td>
+          <td><input [(ngModel)]="registro.PAIS" type="text" class="form-control" placeholder="{{registro.PAIS}}"></td>
+          <th scope="col">
+              <button (click)="modificar_competicion()" type="button" class="btn btn-warning">Modficiar</button>
+          </th> 
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+
+    <!-- Partido -->
+    <div *ngIf="opcion == 'partido'">
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+          <span class="input-group-text">Ingrese la fecha del partido: </span>
+      </div>
+      <input [(ngModel)]="fecha_partido" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+    </div>
+
+    <button (click)="get_partido()" type="button" class="btn btn-primary">Buscar</button>
+
+    <table class="table table-dark">
+      <thead>
+        <tr>
+          <th scope="col">Fecha</th>
+          <th scope="col">Id Estadio</th>
+          <th scope="col">Estado</th>
+          <th scope="col">Id Partido Incidencia</th>
+          <th scope="col">Equipo local</th>
+          <th scope="col">Id Partido Visita</th>
+          <th scope="col">Resultado</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody *ngIf="registro != null">
+        <tr>
+          <td><input [(ngModel)]="registro.FECHA" type="text" class="form-control" placeholder="{{registro.FECHA}}"></td>
+          <td><input [(ngModel)]="registro.IDESTADIO" type="text" class="form-control" placeholder="{{registro.IDESTADIO}}"></td>
+          <td><input [(ngModel)]="registro.ESTADO" type="text" class="form-control" placeholder="{{registro.ESTADO}}"></td>
+          <td><input [(ngModel)]="registro.IDPARTIDO_INCIDENCIA" type="text" class="form-control" placeholder="{{registro.IDPARTIDO_INCIDENCIA}}"></td>
+          <td><input [(ngModel)]="registro.EQUIPO_LOCAL" type="text" class="form-control" placeholder="{{registro.EQUIPO_LOCAL}}"></td>
+          <td><input [(ngModel)]="registro.EQUIPO_VISITA" type="text" class="form-control" placeholder="{{registro.EQUIPO_VISITA}}"></td>
+          <td><input [(ngModel)]="registro.RESULTADO" type="text" class="form-control" placeholder="{{registro.RESULTADO}}"></td>
+          <th scope="col">
+              <button (click)="modificar_partido()" type="button" class="btn btn-warning">Modficiar</button>
+          </th> 
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+
+<!-- USUARIO -->
+<div *ngIf="opcion == 'usuario'">
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text">Ingrese el nombre del usuario: </span>
+    </div>
+    <input [(ngModel)]="nombre_usuario" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+  </div>
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text">Ingrese el usuario: </span>
+    </div>
+    <input [(ngModel)]="usuario" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+  </div>
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text">Contraseña de usuario: </span>
+    </div>
+    <input [(ngModel)]="contrasenia_usuario" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+  </div>
+
+  <button (click)="get_usuario()" type="button" class="btn btn-primary">Buscar</button>
+
+  <table class="table table-dark">
+    <thead>
+      <tr>
+        <th scope="col">Nombre</th>
+        <th scope="col">Clave de acceso</th>
+        <th scope="col">Telefono</th>
+        <th scope="col">Genero</th>
+        <th scope="col">Direccion</th>
+        <th scope="col">Pais</th>
+        <th scope="col">Cantidad membresias</th>
+        <th scope="col">Cantidad de dinero</th>
+        <th scope="col">Estado</th>
+        <th scope="col">Tipo</th>
+        <th scope="col">Descripcion</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody *ngIf="registro != null">
+      <tr>
+        <td><input [(ngModel)]="registro.NOMBRE" type="text" class="form-control" placeholder="{{registro.NOMBRE}}"></td>
+        <td><input [(ngModel)]="registro.CLAVE_DE_ACCESO" type="text" class="form-control" placeholder="{{registro.CLAVE_DE_ACCESO}}"></td>
+        <td><input [(ngModel)]="registro.TELEFONO" type="text" class="form-control" placeholder="{{registro.TELEFONO}}"></td>
+        <td><input [(ngModel)]="registro.GENERO" type="text" class="form-control" placeholder="{{registro.GENERO}}"></td>
+        <td><input [(ngModel)]="registro.DIRECCION" type="text" class="form-control" placeholder="{{registro.FECHA_FUN}}"></td>
+        <td><input [(ngModel)]="registro.PAIS" type="text" class="form-control" placeholder="{{registro.PAIS}}"></td>
+        <td><input [(ngModel)]="registro.CANT_MEM" type="text" class="form-control" placeholder="{{registro.CANT_MEM}}"></td>
+        <td><input [(ngModel)]="registro.CANT_DIN" type="text" class="form-control" placeholder="{{registro.CANT_DIN}}"></td>
+        <td><input [(ngModel)]="registro.ESTADO" type="text" class="form-control" placeholder="{{registro.ESTADO}}"></td>
+        <td><input [(ngModel)]="registro.TIPO" type="text" class="form-control" placeholder="{{registro.TIPO}}"></td>
+        <td><input [(ngModel)]="descripcion_usuario" type="text" class="form-control" placeholder="{{registro.DESCRIPCION}}"></td>
+        
+        <th scope="col">
+            <button (click)="modificar_usaruio(registro.IDUSUARIO)" type="button" class="btn btn-warning">Modficiar</button>
+        </th> 
+      </tr>
+    </tbody>
+  </table>
+</div>

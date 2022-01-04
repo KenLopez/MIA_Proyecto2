@@ -1,0 +1,45 @@
+.selector {
+    width: 100vw;
+    border-radius: 0;
+    text-align: center;
+}
+
+.dropdown {
+    background-color: #1e1e1e;
+}
+
+.dropdown-item {
+   width: 100vw;
+   border-radius: 0;
+   background-color: whitesmoke;
+}
+
+.dropdown-item:hover {
+    background-color: gray;
+}
+
+.pagination {
+    margin-left: 0.5vw;
+}
+
+.page-link {
+    background-color: #2a2d2f;
+}
+
+.cont {
+    margin-top: 1vh;
+    float: right;
+}
+
+.btn {
+    float: right;
+}
+
+.derecha {
+    width: 100%;
+    margin-top: 2vh;
+}
+
+.cont {
+    background-color: #1e1e1e;
+}

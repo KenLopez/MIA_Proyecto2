@@ -1,0 +1,42 @@
+
+.fondo {
+    background-color: #1e1e1e;
+    padding-top: 20px;
+}
+
+.card {
+    background-color: #222930;
+    margin-left: 25%;
+    width: 50%;
+
+}
+
+
+.titulo {
+    background-color: #f7c210;
+    width: 160px;
+    line-height: 10px;
+    text-align: center;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.texto {
+    margin-top: 2vh;
+}
+
+.entrada {
+    margin-right: 10px;
+    border-top-right-radius: 5px !important;
+    border-bottom-right-radius: 5px !important;
+}
+
+.modificar {
+    width: 200px;
+    border-radius: 5px !important;
+}
+
+.final {
+    width: 100%;
+    color: whitesmoke;
+}

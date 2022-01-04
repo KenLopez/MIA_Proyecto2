@@ -1,0 +1,105 @@
+jison pruebas
+
+insertar administrador
+insertarAdmin_emple
+{
+    "nombre": "admin",
+    "usuario": "admin",
+    "clave_de_acceso": "1234",
+    "correo": "prueba@gmail.com",
+    "teléfono": 12345678,
+    "fotografía": "foto.jpg",
+    "genero": "M",
+    "fecha_de_nacimiento": "06/06/1998",
+    "fecha_de_registro": "06/06/2001",
+    "dirección": "zona 14",
+    "país": "guatemala",
+    "tipo": "administrador"
+}
+
+
+insertar usuario
+insertUsuario
+{
+    "nombre": "anggelo",
+    "usuario": "assm",
+    "clave_de_acceso": "12345",
+    "correo": "a@gmail.com",
+    "teléfono": 12345678,
+    "fotografía": "foto.jpg",
+    "genero": "M",
+    "fecha_de_nacimiento": "09/23/1803",
+    "fecha_de_registro": "12/13/1415",
+    "dirección": "usac",
+    "país": "guatemala",
+    "tipo": "gratuito"
+}
+
+insertar equipo
+insertEquipo
+{
+    "nombre": "jalisco",
+    "fecha_fun": "12/12/2000",
+    "pais": "guatemala",
+    "foto_logo": "logo.jpg"
+}
+
+insertar usuario_equipo
+insertUsuario_equipo
+{
+    "fecha_suscrip": "14/14/2020",
+    "tiempo": 30,
+    "idUsuario": "assm",
+    "idEquipo": "jalisco"
+}
+
+insertar director_equipo
+insertDirector_tecnico
+{
+    "nombre": "juan",
+    "fecha_nac": "10/20/1838",
+    "pais": "mexico",
+    "nacionalidad": "mexicano",
+    "estado": "activo",
+    "foto": "activo",
+    "idEquipo": "jalisco",
+    "pais_equipo": "guatemala",
+    "fecha_ini": "09/23/1803",
+    "fecha_fin": "12/13/1415"
+}
+
+insertar participa_competencia
+insertParticipa_competencia
+{
+    "nombre": "10ma funcion",
+    "año": 2000,
+    "tipo": "amistoso",
+    "campeon": "jalisco",
+    "pais": "canada",
+    "pais_equipo": "juatemala",
+    "equipo": "barcelona"
+}
+
+insert Jugador_equipo
+insertJugador_equipo
+{
+    "nombre": "pedro",
+    "fecha_nac": "19/09/1778",
+    "nacionalidad": "español",
+    "posicion": "delantero",
+    "pais_equipo": "españa",
+    "equipo": "barcelona",
+    "fecha_ini": "18/4/2000",
+    "fecha_fin": "19/4/2002"
+} 
+
+insert estadio
+{
+    "pais": "españa",
+    "nomobre": "E_barcelona",
+    "fecha_ing": "12/12/2300",
+    "capacidad": 3000,
+    "direccion": "capital",
+    "estado": "activo",
+    "foto": "foto.jpg"
+} 

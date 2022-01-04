@@ -1,0 +1,248 @@
+<div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle selector" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Elige una opcion para insertar
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a (click)="set_opcion_tabla('estadio')" class="dropdown-item">Estadio</a>
+    <a (click)="set_opcion_tabla('director')" class="dropdown-item">Director tecnico</a>
+    <a (click)="set_opcion_tabla('equipo')" class="dropdown-item">Equipo</a>
+    <a (click)="set_opcion_tabla('jugador')" class="dropdown-item">Jugador</a>
+    <a (click)="set_opcion_tabla('competicion')" class="dropdown-item">Competicion</a>
+    <a (click)="set_opcion_tabla('partido')" class="dropdown-item">Partido</a>
+    <a (click)="set_opcion_tabla('usuario')" class="dropdown-item">Usuario</a>
+  </div>
+
+  <!-- Estadio -->
+  <div *ngIf="opcion  === 'estadio'" class="form-group blanco">
+    <div class="form-group blanco">
+      <label class="label" for="flexSwitchCheckDefault">Pais</label>
+      <input [(ngModel)]="estadio.pais" type="text" class="form-control" id="formGroupExampleInput" placeholder="Nombre">
+    </div>
+    <div class="form-group blanco">
+      <label class="label" for="flexSwitchCheckDefault">Nombre</label>
+      <input [(ngModel)]="estadio.nombre" type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+    </div>
+    <div class="form-group blanco">
+      <label class="label" for="flexSwitchCheckDefault">Fecha ignauracion</label>
+      <input [(ngModel)]="estadio.fecha_ing" type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+    </div>
+    <div class="form-group blanco">
+      <label class="label" for="flexSwitchCheckDefault">Capacidad</label>
+      <input [(ngModel)]="estadio.capacidad" type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+    </div>
+    <div class="form-group blanco">
+      <label class="label" for="flexSwitchCheckDefault">Direccion</label>
+      <input [(ngModel)]="estadio.direccion" type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+    </div>
+    <div class="form-group blanco">
+      <label class="label" for="flexSwitchCheckDefault">Estado</label>
+      <input [(ngModel)]="estadio.estado" type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+    </div>
+    <div class="form-group blanco">
+      <label class="label" for="flexSwitchCheckDefault">Foto</label>
+      <input [(ngModel)]="estadio.foto" type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+    </div>
+  </div>
+
+  <!-- Equipo -->
+  <div *ngIf="opcion  === 'equipo'" class="form-group blanco">
+    <div class="form-group blanco">
+      <label class="label" for="flexSwitchCheckDefault">Nombre</label>
+      <input [(ngModel)]="equipo.nombre" type="text" class="form-control" id="formGroupExampleInput" placeholder="Nombre">
+    </div>
+    <div class="form-group blanco">
+      <label class="label" for="flexSwitchCheckDefault">Fecha fundacion</label>
+      <input [(ngModel)]="equipo.fecha_fun" type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+    </div>
+    <div class="form-group blanco">
+      <label class="label" for="flexSwitchCheckDefault">Pais</label>
+      <input [(ngModel)]="equipo.pais" type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+    </div>
+    <div class="form-group blanco">
+      <label class="label" for="flexSwitchCheckDefault">Foto</label>
+      <input [(ngModel)]="equipo.foto_logo" type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+    </div>
+  </div>
+
+
+  <!-- Jugador -->
+  <div *ngIf="opcion  === 'jugador'" class="form-group blanco">
+    <div class="form-group blanco">
+      <label class="label" for="flexSwitchCheckDefault">Nombre</label>
+      <input [(ngModel)]="jugador.nombre" type="text" class="form-control" id="formGroupExampleInput" placeholder="Nombre">
+    </div>
+    <div class="form-group blanco">
+      <label class="label" for="flexSwitchCheckDefault">Fecha Nacimiento</label>
+      <input [(ngModel)]="jugador.fecha_nac" type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+    </div>
+    <div class="form-group blanco">
+      <label class="label" for="flexSwitchCheckDefault">Nacionalidad</label>
+      <input [(ngModel)]="jugador.nacionalidad" type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+    </div>
+    <div class="form-group blanco">
+      <label class="label" for="flexSwitchCheckDefault">Posicion</label>
+      <input [(ngModel)]="jugador.posicion" type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+    </div>
+    <div class="form-group blanco">
+      <label class="label" for="flexSwitchCheckDefault">Pais de Equipo</label>
+      <input [(ngModel)]="jugador.pais_equipo" type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+    </div>
+    <div class="form-group blanco">
+      <label class="label" for="flexSwitchCheckDefault">Equipo</label>
+      <input [(ngModel)]="jugador.equipo" type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+    </div>
+    <div class="form-group blanco">
+      <label class="label" for="flexSwitchCheckDefault">Fecha Inicio</label>
+      <input [(ngModel)]="jugador.fecha_ini" type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+    </div>
+    <div class="form-group blanco">
+      <label class="label" for="flexSwitchCheckDefault">Fecha Fin</label>
+      <input [(ngModel)]="jugador.fecha_fin" type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+    </div>
+  </div>
+
+  
+  <!-- Competicion -->
+  <div *ngIf="opcion  === 'competicion'" class="form-group blanco">
+    <div class="form-group blanco">
+      <label class="label" for="flexSwitchCheckDefault">Nombre</label>
+      <input [(ngModel)]="competicion.nombre" type="text" class="form-control" id="formGroupExampleInput" placeholder="Nombre">
+    </div>
+    <div class="form-group blanco">
+      <label class="label" for="flexSwitchCheckDefault">Año</label>
+      <input [(ngModel)]="competicion.anio" type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+    </div>
+    <div class="form-group blanco">
+      <label class="label" for="flexSwitchCheckDefault">Tipo</label>
+      <input [(ngModel)]="competicion.tipo" type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+    </div>
+    <div class="form-group blanco">
+      <label class="label" for="flexSwitchCheckDefault">Campeon</label>
+      <input [(ngModel)]="competicion.campeon" type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+    </div>
+    <div class="form-group blanco">
+      <label class="label" for="flexSwitchCheckDefault">Pais</label>
+      <input [(ngModel)]="competicion.pais" type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+    </div>
+    <div class="form-group blanco">
+      <label class="label" for="flexSwitchCheckDefault">Pais Equipo</label>
+      <input [(ngModel)]="competicion.pais_equipo" type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+    </div>
+    <div class="form-group blanco">
+      <label class="label" for="flexSwitchCheckDefault">Equipo</label>
+      <input [(ngModel)]="competicion.equipo" type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+    </div>
+  </div>
+
+
+    <!-- Director tecnico -->
+    <div *ngIf="opcion  === 'director'" class="form-group blanco">
+      <div class="form-group blanco">
+        <label class="label" for="flexSwitchCheckDefault">Nombre</label>
+        <input [(ngModel)]="director.nombre" type="text" class="form-control" id="formGroupExampleInput" placeholder="Nombre">
+      </div>
+      <div class="form-group blanco">
+        <label class="label" for="flexSwitchCheckDefault">Fecha Nacimiento</label>
+        <input [(ngModel)]="director.fecha_nac" type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+      </div>
+      <div class="form-group blanco">
+        <label class="label" for="flexSwitchCheckDefault">Pais</label>
+        <input [(ngModel)]="director.pais" type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+      </div>
+      <div class="form-group blanco">
+        <label class="label" for="flexSwitchCheckDefault">Nacionalidad</label>
+        <input [(ngModel)]="director.nacionalidad" type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+      </div>
+      <div class="form-group blanco">
+        <label class="label" for="flexSwitchCheckDefault">Estado</label>
+        <input [(ngModel)]="director.estado" type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+      </div>
+      <div class="form-group blanco">
+        <label class="label" for="flexSwitchCheckDefault">Foto</label>
+        <input [(ngModel)]="director.foto" type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+      </div>
+      <div class="form-group blanco">
+        <label class="label" for="flexSwitchCheckDefault">Equipo</label>
+        <input [(ngModel)]="director.idEquipo" type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+      </div>
+      <div class="form-group blanco">
+        <label class="label" for="flexSwitchCheckDefault">Pais Equipo</label>
+        <input [(ngModel)]="director.pais_equipo" type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+      </div>
+      <div class="form-group blanco">
+        <label class="label" for="flexSwitchCheckDefault">Fecha Inicio</label>
+        <input [(ngModel)]="director.fecha_ini" type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+      </div>
+      <div class="form-group blanco">
+        <label class="label" for="flexSwitchCheckDefault">Fecha Fin</label>
+        <input [(ngModel)]="director.fecha_fin" type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+      </div>
+    </div>
+  
+  
+    <!-- Partido -->
+    <div *ngIf="opcion  === 'partido'" class="form-group blanco">
+      <div class="form-group blanco">
+        <label class="label" for="flexSwitchCheckDefault">Fecha</label>
+        <input [(ngModel)]="partido.fecha" type="text" class="form-control" id="formGroupExampleInput" placeholder="Nombre">
+      </div>
+      <div class="form-group blanco">
+        <label class="label" for="flexSwitchCheckDefault">Estadio</label>
+        <input [(ngModel)]="partido.Estadio" type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+      </div>
+      <div class="form-group blanco">
+        <label class="label" for="flexSwitchCheckDefault">Estado</label>
+        <input [(ngModel)]="partido.estado" type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+      </div>
+      <div class="form-group blanco">
+        <label class="label" for="flexSwitchCheckDefault">Asistencia</label>
+        <input [(ngModel)]="partido.asistencia" type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+      </div>
+      <div class="form-group blanco">
+        <label class="label" for="flexSwitchCheckDefault">Pais local</label>
+        <input [(ngModel)]="partido.pais_local" type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+      </div>
+      <div class="form-group blanco">
+        <label class="label" for="flexSwitchCheckDefault">Equipo local</label>
+        <input [(ngModel)]="partido.equipo_local" type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+      </div>
+      <div class="form-group blanco">
+        <label class="label" for="flexSwitchCheckDefault">Pais visita</label>
+        <input [(ngModel)]="partido.pais_visita" type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+      </div>
+      <div class="form-group blanco">
+        <label class="label" for="flexSwitchCheckDefault">Equipo visita</label>
+        <input [(ngModel)]="partido.equipo_visita" type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+      </div>
+      <div class="form-group blanco">
+        <label class="label" for="flexSwitchCheckDefault">Resultado</label>
+        <input [(ngModel)]="partido.resultado" type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+      </div>
+      <div class="form-group blanco">
+        <label class="label" for="flexSwitchCheckDefault">Incidencia</label>
+        <input [(ngModel)]="partido.incidencia" type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+      </div>
+      <div class="form-group blanco">
+        <label class="label" for="flexSwitchCheckDefault">Minuto</label>
+        <input [(ngModel)]="partido.minuto" type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+      </div>
+      <div class="form-group blanco">
+        <label class="label" for="flexSwitchCheckDefault">Equipo Incidencia</label>
+        <input [(ngModel)]="partido.equipo_incidencia" type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+      </div>
+      <div class="form-group blanco">
+        <label class="label" for="flexSwitchCheckDefault">Jugador</label>
+        <input [(ngModel)]="partido.jugador" type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+      </div>
+    </div>
+  
+    <div  *ngIf="opcion  === 'usuario'" class="form-group blanco">
+      <app-agregar-usuario></app-agregar-usuario>
+    </div>
+  
+  <div  *ngIf="opcion  !== '' && opcion !== 'usuario'" class="form-group blanco">
+    <button (click)="insertar_registro()" type="button" class="btn btn-success derecha">Insertar</button>
+  </div>
+  
+
+</div>

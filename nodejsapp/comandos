@@ -1,0 +1,2 @@
+npm install aws-sdk body-parser cookie-parser cors crypto-browserify crypto-js debug dotenv express http-errors  jade morgan nodemon  dotenv oracledb 
+

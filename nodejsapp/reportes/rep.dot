@@ -1,0 +1,20 @@
+digraph { 
+tabla [ 
+shape=plaintext 
+label=<  
+<table border='0' cellborder='1'  cellspacing='0'>  
+<tr> 
+<td BGCOLOR="gray"> Fecha </td> 
+<td BGCOLOR="gray"> Nombre </td> 
+<td BGCOLOR="gray"> Usuario </td> 
+<td BGCOLOR="gray"> Descripcion </td> 
+</tr> 
+<tr> 
+<td> 28/12/2021 </td> 
+<td> admin </td> 
+<td> admin </td> 
+<td> acceso nuevo </td> 
+</tr> 
+</table> 
+>] 
+}

@@ -1,0 +1,23 @@
+<div class = "fondo">
+    <div class="card">
+        <div class="card-body">
+            <div>
+                <div class="input-group linea">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                    </div>
+                    <input [(ngModel)]="info_sucripcion.equipo" type="password" class="form-control" placeholder="nombre de equipo">
+                </div>
+
+				<div class="input-group linea">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                    </div>
+                    <input [(ngModel)]="info_sucripcion.tarjeta" type="password" class="form-control" placeholder="numero tarejata">
+                </div>
+    
+				<button (click)="subscribirse()"data-dismiss="modal"   type="button" class="btn btn-success derecha">Adquirir membresia</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,193 @@
+<div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle selector" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Elige una opcion para eliminar
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <a (click)="set_opcion_tabla('equipo')" class="dropdown-item">Equipo</a>
+      <a (click)="set_opcion_tabla('jugador')" class="dropdown-item">Jugador</a>
+      <a (click)="set_opcion_tabla('director')" class="dropdown-item">Director tecnico</a>
+      <a (click)="set_opcion_tabla('estadio')" class="dropdown-item">Estadio</a>
+      <a (click)="set_opcion_tabla('competicion')" class="dropdown-item">Competicion</a>
+      <a (click)="set_opcion_tabla('partido')" class="dropdown-item">Partido</a>
+    </div>
+
+  <!-- Deslizador de pagina -->
+  <div class="cont">
+    <div *ngIf="registros != null && registros.length > 0" >
+    <ul class="pagination">
+      <li class="page-item">
+        <a (click)="get_pagina_anterior()" class="page-link" tabindex="-1">Previous</a>
+      </li>
+        <li class="page-item">
+            <a class="page-link" tabindex="-1">{{pagina_actual}}</a>
+        </li>
+      <li class="page-item">
+        <a (click)="get_pagina_posterior()" class="page-link" tabindex="-1">Next</a>
+      </li>
+    </ul>
+    </div>
+  </div>
+
+    <!-- Equipo -->
+    <table *ngIf="opcion === 'equipo'" class="table table-dark">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Pais</th>
+          <th scope="col">Fecha fundacion</th>
+          <th scope="col">Foto Logo</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody *ngIf="registros != null">
+        <tr *ngFor="let registro of registros.slice(indice_inicio, indice_inicio +10), index as i">
+          <td>{{registro.IDEQUIPO}}</td>
+          <td>{{registro.NOMBRE}}</td>
+          <td>{{registro.PAIS}}</td>
+          <td>{{registro.FECHA_FUN}}</td>
+          <td>{{registro.FOTO_LOGO}}</td>
+          <td><button (click)="eliminar_registro(registro.IDEQUIPO, i)" type="button" class="btn btn-danger">Eliminar</button></td>
+        </tr>
+      </tbody>
+    </table>
+
+
+    <!-- Jugador -->
+    <table *ngIf="opcion === 'jugador'" class="table table-dark">
+      <thead>
+        <tr>
+          <th scope="row">Id</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Fecha Nacimiento</th>
+          <th scope="col">Nacionalidad</th>
+          <th scope="col">Posicion</th>
+          <th scope="col">Equipo</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody *ngIf="registros != null">
+        <tr *ngFor="let registro of registros.slice(indice_inicio, indice_inicio +10), index as i">
+          <td>{{registro.IDJUGADOR}}</td>
+          <td>{{registro.NOMBRE}}</td>
+          <td>{{registro.FECHA_NAC}}</td>
+          <td>{{registro.NACIONALIDAD}}</td>
+          <td>{{registro.POSICION}}</td>
+          <td>{{registro.IDEQUIPO}}</td>
+          <td><button (click)="eliminar_registro(registro.IDJUGADOR, i)"  type="button" class="btn btn-danger">Eliminar</button></td>
+        </tr>
+      </tbody>
+    </table>
+
+
+    <!-- Director -->
+    <table *ngIf="opcion === 'director'" class="table table-dark">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Fecha Nacimiento</th>
+          <th scope="col">Pais</th>
+          <th scope="col">Nacionalidad</th>
+          <th scope="col">Estado</th>
+          <th scope="col">Foto</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody *ngIf="registros != null">
+        <tr *ngFor="let registro of registros.slice(indice_inicio, indice_inicio +10), index as i">
+          <td>{{registro.IDDIRECTOR_TECNICO}}</td>
+          <td>{{registro.NOMBRE}}</td>
+          <td>{{registro.FECHA_NAC}}</td>
+          <td>{{registro.PAIS}}</td>
+          <td>{{registro.NACIONALIDAD}}</td>
+          <td>{{registro.ESTADO}}</td>
+          <td>{{registro.FOTO}}</td>
+          <td><button (click)="eliminar_registro(registro.IDDIRECTOR_TECNICO, i)"  type="button" class="btn btn-danger">Eliminar</button></td>
+        </tr>
+      </tbody>
+    </table>
+
+
+
+    <!-- Estadio -->
+    <table *ngIf="opcion === 'estadio'" class="table table-dark">
+      <thead>
+        <tr>
+          <th scope="col">Pais</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Fecha ignauracion</th>
+          <th scope="col">Capacidad</th>
+          <th scope="col">Direccion</th>
+          <th scope="col">Estado</th>
+          <th scope="col">Foto</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody *ngIf="registros != null">
+        <tr *ngFor="let registro of registros.slice(indice_inicio, indice_inicio +10), index as i">
+          <td>{{registro.PAIS}}</td>
+          <td>{{registro.NOMBRE}}</td>
+          <td>{{registro.FECHA_ING}}</td>
+          <td>{{registro.CAPACIDAD}}</td>
+          <td>{{registro.DIRECCION}}</td>
+          <td>{{registro.ESTADO}}</td>
+          <td>{{registro.FOTO}}</td>
+          <td><button (click)="eliminar_registro(registro.IDESTADIO, i)" type="button" class="btn btn-danger">Eliminar</button></td>
+        </tr>
+      </tbody>
+    </table>
+
+
+    <!-- Competicion -->
+    <table *ngIf="opcion === 'competicion'" class="table table-dark">
+      <thead>
+        <tr>
+          <th scope="col">Nombre</th>
+          <th scope="col">Año</th>
+          <th scope="col">Tipo</th>
+          <th scope="col">Pais</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody *ngIf="registros != null">
+        <tr *ngFor="let registro of registros.slice(indice_inicio, indice_inicio +10), index as i">
+          <td>{{registro.NOMBRE}}</td>
+          <td>{{registro.ANIO}}</td>
+          <td>{{registro.TIPO}}</td>
+          <td>{{registro.PAIS}}</td>
+          <td><button (click)="eliminar_registro(registro.IDCOMPETICION, i)" type="button" class="btn btn-danger">Eliminar</button></td>
+        </tr>
+      </tbody>
+    </table>
+
+
+    <!-- Partido -->
+    <table *ngIf="opcion === 'partido'" class="table table-dark">
+      <thead>
+        <tr>
+          <th scope="col">Fecha</th>
+          <th scope="col">Id Estadio</th>
+          <th scope="col">Estado</th>
+          <th scope="col">Id Partido Incidencia</th>
+          <th scope="col">Equipo local</th>
+          <th scope="col">Id Partido Visita</th>
+          <th scope="col">Resultado</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody *ngIf="registros != null">
+        <tr *ngFor="let registro of registros.slice(indice_inicio, indice_inicio +10), index as i">
+          <td>{{registro.FECHA}}</td>
+          <td>{{registro.IDESTADIO}}</td>
+          <td>{{registro.ESTADO}}</td>
+          <td>{{registro.IDPARTIDO_INCIDENCIA}}</td>
+          <td>{{registro.EQUIPO_LOCAL}}</td>
+          <td>{{registro.EQUIPO_VISITA}}</td>
+          <td>{{registro.RESULTADO}}</td>
+          <td><button (click)="eliminar_registro(registro.IDPARTIDO, i)"  type="button" class="btn btn-danger">Eliminar</button></td>
+        </tr>
+      </tbody>
+    </table>
+    
+  </div>

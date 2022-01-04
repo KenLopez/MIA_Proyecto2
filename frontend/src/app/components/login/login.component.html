@@ -1,0 +1,42 @@
+<div class="contenedor">
+	<div class="d-flex justify-content-center h-100">
+		<div class="card">
+			<div class="card-header">
+				<h3>Iniciar Sesion</h3>
+			</div>
+			<div class="card-body">
+				<div>
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-user"></i></span>
+						</div>
+						<input [(ngModel)]="nombre" type="text"  class="form-control" placeholder="nombre">
+					</div>
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-lock"></i></span>
+						</div>
+						<input [(ngModel)]="contrasena" type="password" class="form-control" placeholder="contraseña">
+					</div>
+					<div class="form-group">
+						<!-- Button trigger modal -->
+						<button (click)="iniciarSesion()" type="button" class="btn float-right login_btn">
+							Entrar
+						</button>
+						<!-- Fin button trigger modal -->
+
+					</div>
+				</div>
+			</div>
+			<div class="card-footer">
+				<div class="d-flex justify-content-center links">
+					Don't have an account?<a routerLinkActive="active current" routerLink="/registro">Registrarse</a>
+				</div>
+				<div class="d-flex justify-content-center">
+					<a routerLinkActive="active current" routerLink="#">Cambiar contraseña</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

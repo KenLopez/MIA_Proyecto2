@@ -1,0 +1,71 @@
+<div class = "fondo">
+    <div class="card">
+        <div class="card-body">
+            <div>
+                <div class="input-group form-group">
+                    <div class="titulo">
+                        <label class="texto">Nombre: </label>
+                    </div>
+                    <input [(ngModel)]="info_usuario.NOMBRE" type="text" class="form-control entrada" placeholder="{{info_usuario.NOMBRE}}">
+                    <button (click)="modificar()" type="button" class="btn btn-success modificar">modificar</button>
+                </div>
+    
+                <div class="input-group form-group">
+                    <div class="titulo">
+                        <label class="texto">Usuario: </label>
+                    </div>
+                    <input [(ngModel)]="info_usuario.USUARIO" type="text" class="form-control entrada" placeholder="{{info_usuario.USUARIO}}">
+                    <button (click)="modificar()" type="button" class="btn btn-success modificar">modificar</button>
+                </div>
+
+                <div class="input-group form-group">
+                    <div class="titulo">
+                        <label class="texto">Telefono: </label>
+                    </div>
+                    <input [(ngModel)]="info_usuario.TELEFONO" type="text" class="form-control entrada" placeholder="{{info_usuario.TELEFONO}}">
+                    <button (click)="modificar()" type="button" class="btn btn-success modificar">modificar</button>
+                </div>
+                
+                <div class="input-group form-group">
+                    <div class="titulo">
+                        <label class="texto">Genero: </label>
+                    </div>
+                    <input [(ngModel)]="info_usuario.GENERO" type="text" class="form-control entrada" placeholder="{{info_usuario.GENERO}}">
+                    <button (click)="modificar()" type="button" class="btn btn-success modificar">modificar</button>
+                </div>
+
+                <div class="input-group form-group">
+                    <div class="titulo">
+                        <label class="texto">Fecha naciemiento: </label>
+                    </div>
+                    <input [(ngModel)]="info_usuario.FECHA_DE_NACIMIENTO" type="text" class="form-control entrada" placeholder="{{info_usuario.FECHA_DE_NACIMIENTO}}">
+                    <button (click)="modificar()" type="button" class="btn btn-success modificar">modificar</button>
+                </div>
+
+                <div class="input-group form-group">
+                    <div class="titulo">
+                        <label class="texto">Pais: </label>
+                    </div>
+                    <input [(ngModel)]="info_usuario.PAIS"  type="text" class="form-control entrada" placeholder="{{info_usuario.PAIS}}">
+                    <button (click)="modificar()" type="button" class="btn btn-success modificar">modificar</button>
+                </div>
+
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary final" data-toggle="modal" data-target="#exampleModal">
+                    Adquirir membresia
+                </button>
+                   
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <app-membresia></app-membresia>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+

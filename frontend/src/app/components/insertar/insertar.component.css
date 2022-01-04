@@ -1,0 +1,37 @@
+.selector {
+    width: 100vw;
+    border-radius: 0;
+    text-align: center;
+}
+
+.dropdown {
+    background-color: #1e1e1e;
+}
+
+.dropdown-item {
+   width: 100vw;
+   border-radius: 0;
+   background-color: whitesmoke;
+}
+
+.dropdown-item:hover {
+    background-color: gray;
+}
+
+.blanco {
+    color: whitesmoke;
+    margin-top: 2vh;
+}
+
+.derecha {
+    width: 100%;
+    margin-top: 2vh;
+}
+
+.fila {
+    margin-bottom: 2vh;
+}
+
+.form-switch {
+    margin-bottom: 2vh;
+}

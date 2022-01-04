@@ -1,0 +1,16 @@
+<table class="table table-dark">
+    <thead>
+        <tr>
+            <th scope="col">Noticias de incidencias</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let noticia of registros">
+            <td>
+                En la fecha {{noticia.FECHA}} {{noticia.JUGADOR}} del equipo {{noticia.EQUIPO}} tuvo 
+                la incidencia de {{noticia.INCIDENCIA}} en el minuto {{noticia.MINUTO}} mientras
+                tenia {{noticia.ASISTENCIA}} asistencias
+            </td>
+        </tr>
+    </tbody>
+</table>

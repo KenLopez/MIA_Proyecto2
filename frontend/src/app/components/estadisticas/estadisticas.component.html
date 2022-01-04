@@ -1,0 +1,573 @@
+<div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle selector" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Elige una opcion de consulta de datos estadisticos
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <a (click)="set_opcion_consulta('consulta1')" class="dropdown-item">1) Jugadores o Técnicos de  X equipo</a>
+      <a (click)="set_opcion_consulta('consulta2')" class="dropdown-item">2) Jugadores o Técnicos mayores a X años</a>
+      <a (click)="set_opcion_consulta('consulta3')" class="dropdown-item">3) Jugadores o Técnicos menores a X años</a>
+      <a (click)="set_opcion_consulta('consulta4')" class="dropdown-item">4) Equipos que participaron en X competicion</a>
+      <a (click)="set_opcion_consulta('consulta5')" class="dropdown-item">5) Equipo de X pais</a>
+      <a (click)="set_opcion_consulta('consulta6')" class="dropdown-item">6) Equipos con X años de antiguedad</a>
+      <a (click)="set_opcion_consulta('consulta7')" class="dropdown-item">7) Estadios en X pais</a>
+      <a (click)="set_opcion_consulta('consulta8')" class="dropdown-item">8) Estadisos con capacidad menor o igual a X</a>
+      <a (click)="set_opcion_consulta('consulta9')" class="dropdown-item">9) Historicos de partidos de X equipo</a>
+      <a (click)="set_opcion_consulta('consulta10')" class="dropdown-item">10) Equipos en los que ha estado X tecnico o jugador</a>
+      <a (click)="set_opcion_consulta('consulta11')" class="dropdown-item">11) Partidos donde hubo al menos X goles</a>
+      <a (click)="set_opcion_consulta('consulta12')" class="dropdown-item">12) Jugadores con mas X incidencias en Y competicón</a>
+      <a (click)="set_opcion_consulta('consulta13')" class="dropdown-item">13) Jugadores con mas X incidencias y Y competiciones de Z año</a>
+      <a (click)="set_opcion_consulta('consulta14')" class="dropdown-item">14) Canitdad de X competiciones que ha ganado Y equipo</a>
+      <a (click)="set_opcion_consulta('consulta15')" class="dropdown-item">15) Listado de partidos en X años</a>
+      <a (click)="set_opcion_consulta('consulta16')" class="dropdown-item">16) Listado de partidos entre X equipo contra Y equipo</a>
+      <a (click)="set_opcion_consulta('consulta17')" class="dropdown-item">17) Listado de partidos de X equipo</a>
+    </div>
+</div>
+
+<!-- Consulta 1: Jugadores o Tecnicos de X equipo -->
+<div *ngIf="opcion === 'consulta1'">
+    <div class="cont"> 
+        <span class="input-group-text">{{entidad}}</span>
+        <button class="btn btn-secondary dropdown-toggle selector" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Jugador o Director
+        </button>
+
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+            <a (click)="set_jugador()" class="dropdown-item">Jugador</a>
+            <a (click)="set_director()" class="dropdown-item">Director</a>
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Ingrese el nombre del equipo: </span>
+            </div>
+            <input [(ngModel)]="nombre_equipo" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+        </div>
+        <button (click)="consultar()" type="button" class="btn btn-success derecha">Consultar</button>
+    </div>
+
+    <table class="table table-dark">
+        <thead>
+            <tr>
+                <th scope="col">Nombre</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let registro of registros">
+                <td>{{registro.NOMBRE}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<!-- Consulta 2: Jugadores o Técnicos mayores a X años -->
+<!-- Consulta 3: Jugadores o Técnicos menores a X años -->
+<div *ngIf="opcion === 'consulta2' || opcion === 'consulta3'">
+    <div class="cont"> 
+
+        <span class="input-group-text">{{entidad}}</span>
+        <button class="btn btn-secondary dropdown-toggle selector" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Jugador o Director
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+            <a (click)="set_jugador()" class="dropdown-item">Jugador</a>
+            <a (click)="set_director()" class="dropdown-item">Director</a>
+        </div>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Años: </span>
+            </div>
+            <input [(ngModel)]="anios_entidad" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+        </div>
+        <button (click)="consultar()" type="button" class="btn btn-success derecha">Consultar</button>
+    </div>
+
+    <table class="table table-dark">
+        <thead>
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Años</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let registro of registros">
+                <td>{{registro.NOMBRE}}</td>
+                <td>{{registro.ANIOS}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<!-- Consulta 4: Equipos que participaron en X competicion -->
+<div *ngIf="opcion === 'consulta4'">
+    <div > 
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Nombre competicion: </span>
+            </div>
+            <input [(ngModel)]="nombre_competicion" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+        </div>
+        <button (click)="consultar()" type="button" class="btn btn-success derecha">Consultar</button>
+    </div>
+
+    <table class="table table-dark">
+        <thead>
+            <tr>
+                <th scope="col">Nombre Competicion</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let registro of registros">
+                <td>{{registro.NOMBRE}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<!-- Consulta 5: Equipo de X pais -->
+<div *ngIf="opcion === 'consulta5'">
+    <div > 
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Nombre Pais: </span>
+            </div>
+            <input [(ngModel)]="nombre_pais" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+        </div>
+        <button (click)="consultar()" type="button" class="btn btn-success derecha">Consultar</button>
+    </div>
+
+    <table class="table table-dark">
+        <thead>
+            <tr>
+                <th scope="col">Nombre Equipo</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let registro of registros">
+                <td>{{registro.NOMBRE}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<!-- Consulta 6: Equipos con X años de antiguedas -->
+<div *ngIf="opcion === 'consulta6'">
+    <div > 
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Años Antiguedad: </span>
+            </div>
+            <input [(ngModel)]="anios_antiguedad" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+        </div>
+        <button (click)="consultar()" type="button" class="btn btn-success derecha">Consultar</button>
+    </div>
+
+    <table class="table table-dark">
+        <thead>
+            <tr>
+                <th scope="col">Nombre Equipo</th>
+                <th scope="col">Años de antiudedad</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let registro of registros">
+                <td>{{registro.NOMBRE}}</td>
+                <td>{{registro.ANIOS}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+
+<!-- Consulta 5: Equipo de X pais -->
+<div *ngIf="opcion === 'consulta5'">
+    <div > 
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Nombre Pais: </span>
+            </div>
+            <input [(ngModel)]="nombre_pais" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+        </div>
+        <button (click)="consultar()" type="button" class="btn btn-success derecha">Consultar</button>
+    </div>
+
+    <table class="table table-dark">
+        <thead>
+            <tr>
+                <th scope="col">Nombre Equipo</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let registro of registros">
+                <td>{{registro.NOMBRE}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<!-- Consulta 7: Estadios en X pais -->
+<div *ngIf="opcion === 'consulta7'">
+    <div > 
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Nombre pais: </span>
+            </div>
+            <input [(ngModel)]="pais_estadio" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+        </div>
+        <button (click)="consultar()" type="button" class="btn btn-success derecha">Consultar</button>
+    </div>
+
+    <table class="table table-dark">
+        <thead>
+            <tr>
+                <th scope="col">Nombre Estadios</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let registro of registros">
+                <td>{{registro.NOMBRE}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<!-- Consulta 8: Estadisos con capacidad menor o igual a X -->
+<div *ngIf="opcion === 'consulta8'">
+    <div > 
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Capacidad estadio: </span>
+            </div>
+            <input [(ngModel)]="capacidad_estadio" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+        </div>
+        <button (click)="consultar()" type="button" class="btn btn-success derecha">Consultar</button>
+    </div>
+
+    <table class="table table-dark">
+        <thead>
+            <tr>
+                <th scope="col">Nombre Estadios</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let registro of registros">
+                <td>{{registro.NOMBRE}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+
+<!-- Consulta 9: Historicos de partidos de X equipo -->
+<div *ngIf="opcion === 'consulta9'">
+    <div > 
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Nombre equipo: </span>
+            </div>
+            <input [(ngModel)]="nombre_equipo" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+        </div>
+        <button (click)="consultar()" type="button" class="btn btn-success derecha">Consultar</button>
+    </div>
+
+    <table class="table table-dark">
+        <thead>
+            <tr>
+                <th scope="col">Fecha</th>
+                <th scope="col">Equipo local</th>
+                <th scope="col">Equipo visitante</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let registro of registros">
+                <td>{{registro.FECHA}}</td>
+                <td>{{registro.LOCAL}}</td>
+                <td>{{registro.VISITA}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+
+<!-- Consulta 10: Equipos en los que ha estado X tecnico o jugador ERROR ERROR ERROR --> 
+<div *ngIf="opcion === 'consulta10'">
+    <div class="cont"> 
+        <span class="input-group-text">{{entidad}}</span>
+        <button class="btn btn-secondary dropdown-toggle selector" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Jugador o Director
+        </button>
+
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+            <a (click)="set_jugador()" class="dropdown-item">Jugador</a>
+            <a (click)="set_director()" class="dropdown-item">Director</a>
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Nombre de {{entidad}}: </span>
+            </div>
+            <input [(ngModel)]="nombre_equipo" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+        </div>
+        <button (click)="consultar()" type="button" class="btn btn-success derecha">Consultar</button>
+    </div>
+
+    <table class="table table-dark">
+        <thead>
+            <tr>
+                <th scope="col">Nombre de equipo</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let registro of registros">
+                <td>{{registro.NOMBRE}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<!-- Consulta 11: Partidos donde hubo al menos X goles -->
+<div *ngIf="opcion === 'consulta11'">
+    <div > 
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Canitidad de goles: </span>
+            </div>
+            <input [(ngModel)]="canitdad_goles" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+        </div>
+        <button (click)="consultar()" type="button" class="btn btn-success derecha">Consultar</button>
+    </div>
+
+    <table class="table table-dark">
+        <thead>
+            <tr>
+                <th scope="col">Fecha</th>
+                <th scope="col">Equipo local</th>
+                <th scope="col">Equipo visitante</th>
+                <th scope="col">Gol</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let registro of registros">
+                <td>{{registro.FECHA}}</td>
+                <td>{{registro.LOCAL}}</td>
+                <td>{{registro.VISITA}}</td>
+                <td>{{registro.GOL}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+
+<!-- Consulta 12: Jugadores con mas X incidencias en Y competicón -->
+<div *ngIf="opcion === 'consulta12'">
+    <div> 
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Incidencia: </span>
+            </div>
+            <input [(ngModel)]="incidencia" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+        </div>
+        <button (click)="consultar()" type="button" class="btn btn-success derecha">Consultar</button>
+    </div>
+
+    <table class="table table-dark">
+        <thead>
+            <tr>
+                <th scope="col">Nombre de Jugador</th>
+                <th scope="col">Canitdad Incidencias</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let registro of registros">
+                <td>{{registro.NOMBRE}}</td>
+                <td>{{registro.INCIDENCIAS}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+
+<!-- Consulta 13: Jugadores con mas X incidencias y Y competiciones de Z año -->
+<div *ngIf="opcion === 'consulta13'">
+    <div> 
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Incidencia: </span>
+            </div>
+            <input [(ngModel)]="incidencia" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Año de indcidencias: </span>
+            </div>
+            <input [(ngModel)]="anio_incidencias" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+        </div>
+        <button (click)="consultar()" type="button" class="btn btn-success derecha">Consultar</button>
+    </div>
+
+    <table class="table table-dark">
+        <thead>
+            <tr>
+                <th scope="col">Nombre de Jugador</th>
+                <th scope="col">Canitdad Incidencias</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let registro of registros">
+                <td>{{registro.NOMBRE}}</td>
+                <td>{{registro.INCIDENCIAS}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+
+
+<!-- Consulta 14: Jugadores con mas X incidencias y Y competiciones de Z año -->
+<div *ngIf="opcion === 'consulta14'">
+    <div> 
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Nombre equipo: </span>
+            </div>
+            <input [(ngModel)]="nombre_equipo" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Nombre competicion: </span>
+            </div>
+            <input [(ngModel)]="nombre_competicion" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+        </div>
+        <button (click)="consultar()" type="button" class="btn btn-success derecha">Consultar</button>
+    </div>
+
+    <table class="table table-dark">
+        <thead>
+            <tr>
+                <th scope="col">Nombre de equipo</th>
+                <th scope="col">Total de competicones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let registro of registros">
+                <td>{{registro.NOMBRE}}</td>
+                <td>{{registro.TOTAL}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<!-- Consulta 15: Listado de partidos en X años -->
+<div *ngIf="opcion === 'consulta15'">
+    <div> 
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Año: </span>
+            </div>
+            <input [(ngModel)]="anio_partidos" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+        </div>
+        <button (click)="consultar()" type="button" class="btn btn-success derecha">Consultar</button>
+    </div>
+
+    <table class="table table-dark">
+        <thead>
+            <tr>
+                <th scope="col">Fecha partido</th>
+                <th scope="col">Equipo local</th>
+                <th scope="col">Equipo visita</th>
+                <th scope="col">Resultado</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let registro of registros">
+                <td>{{registro.FECHA}}</td>
+                <td>{{registro.LOCAL}}</td>
+                <td>{{registro.VISITA}}</td>
+                <td>{{registro.RESULTADO}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+
+<!-- Consulta 16: Listado de partidos en X años -->
+<div *ngIf="opcion === 'consulta16'">
+    <div> 
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Equipo 1: </span>
+            </div>
+            <input [(ngModel)]="equipo1" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Equipo 2: </span>
+            </div>
+            <input [(ngModel)]="equipo2" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+        </div>
+        <button (click)="consultar()" type="button" class="btn btn-success derecha">Consultar</button>
+    </div>
+
+    <table class="table table-dark">
+        <thead>
+            <tr>
+                <th scope="col">Fecha partido</th>
+                <th scope="col">Equipo local</th>
+                <th scope="col">Equipo visita</th>
+                <th scope="col">Resultado</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let registro of registros">
+                <td>{{registro.FECHA}}</td>
+                <td>{{registro.LOCAL}}</td>
+                <td>{{registro.VISITA}}</td>
+                <td>{{registro.RESULTADO}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<!-- Consulta 17: Listado de partidos de X equipo -->
+<div *ngIf="opcion === 'consulta17'">
+    <div> 
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Equipo: </span>
+            </div>
+            <input [(ngModel)]="equipo1" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+        </div>
+        <button (click)="consultar()" type="button" class="btn btn-success derecha">Consultar</button>
+    </div>
+
+    <table class="table table-dark">
+        <thead>
+            <tr>
+                <th scope="col">Fecha partido</th>
+                <th scope="col">Equipo local</th>
+                <th scope="col">Equipo visita</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let registro of registros">
+                <td>{{registro.FECHA}}</td>
+                <td>{{registro.LOCAL}}</td>
+                <td>{{registro.VISITA}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

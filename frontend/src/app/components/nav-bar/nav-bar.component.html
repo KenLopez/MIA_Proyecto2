@@ -1,0 +1,57 @@
+<div>
+    <nav class="navbar navbar-expand-lg">
+        <img src="../../../assets/pelota.png" class="logo" routerLinkActive="active current" routerLink="/inicio">
+        <span class="navbar-toggle" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </span>
+
+        
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="main-nav" id="js-menu">
+            <li>
+                <a class="nav-links" routerLinkActive="active current" routerLink="/inicio/modificar">Modificar</a>
+            </li>
+
+            <li>
+                <a class="nav-links" routerLinkActive="active current" routerLink="/inicio/insertar">Insertar</a>
+            </li>
+
+            <li>
+                <a  class="nav-links" routerLinkActive="active current" routerLink="/inicio/eliminar">Eliminar</a>
+            </li>
+
+            <li>
+                <a class="nav-links" routerLinkActive="active current" routerLink="/inicio/buscar">Mostrar</a>
+            </li>
+
+            <li>
+                <a class="nav-links" routerLinkActive="active current" routerLink="/inicio/reportes">Reportes</a>
+            </li>
+
+            <li>
+                <a class="nav-links" routerLinkActive="active current" routerLink="/inicio/resultados">Resultados</a>
+            </li>
+
+            <li>
+                <a class="nav-links" routerLinkActive="active current" routerLink="/inicio/noticias">Noticias</a>
+            </li>
+
+            <li>
+                <a class="nav-links" routerLinkActive="active current" routerLink="/inicio/estadisticos">Datos Estadisticos</a>
+            </li>
+
+            <li>
+                <a class="nav-links" routerLinkActive="active current" routerLink="/inicio/perfil">Perfil</a>
+            </li>
+
+            <li class="salir">
+                <a class="nav-links" (click)="cerrarSesion()">Salir</a>
+            </li>
+        
+
+        </ul>
+    </div>
+    </nav>
+
+    <router-outlet></router-outlet>
+</div>

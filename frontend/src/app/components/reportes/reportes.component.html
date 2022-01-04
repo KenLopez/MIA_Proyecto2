@@ -1,0 +1,245 @@
+<div class="oscuro">
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle selector" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Elige el reporte a visualizar
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a (click)="set_opcion('reporte1')" class="dropdown-item">1) Usuarios suscritos a X equipo</a>
+          <a (click)="set_opcion('reporte2')" class="dropdown-item">2) Usuarios con o sin membresia</a>
+          <a (click)="set_opcion('reporte3')" class="dropdown-item">3) Usuarios que mas membresias han adquirido</a>
+          <a (click)="set_opcion('reporte4')" class="dropdown-item">4) Usuarios que mas dinero han gastado</a>
+          <a (click)="set_opcion('reporte5')" class="dropdown-item">5) Usuarios de X pais</a>
+          <a (click)="set_opcion('reporte6')" class="dropdown-item">6) Usuarios de X genero</a>
+          <a (click)="set_opcion('reporte7')" class="dropdown-item">7) Usuarios con almenos X años de edad</a>
+          <a (click)="set_opcion('reporte8')" class="dropdown-item">8) Empleados que MAS/MENOS noticias han publicado</a>
+          <a (click)="set_opcion('reporte8')" class="dropdown-item">9) Empleados que MAS/MENOS noticias han publicado de X equipo</a>
+          <a (click)="set_opcion('reporte10')" class="dropdown-item">10) Bitacora de los administradores</a>
+        </div>
+    </div>
+    
+    
+    <!-- Reporte2: Usuarios con o sin membresia -->
+    <div *ngIf="opcion == 'reporte2'">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Ingrese "con" o "sin" para la membresia: </span>
+            </div>
+            <input [(ngModel)]="membresia" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+        </div>
+
+        <button (click)="get_registros()" type="button" class="btn btn-primary">Buscar</button>
+
+        <table class="table table-dark">
+            <thead>
+            <tr>
+                <th scope="col">Nombre de persona</th>
+                <th scope="col">Usuario de persona</th>
+            </tr>
+            </thead>
+            <tbody >
+            <tr *ngFor="let registro of registros, index as i">
+                <td>{{registro.NOMBRE}}</td>
+                <td>{{registro.USUARIO}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <!-- Reporte4: Usuarios que mas dinero han gastado -->
+    <div *ngIf="opcion == 'reporte4'">
+        <table class="table table-dark">
+            <thead>
+            <tr>
+                <th scope="col">Nombre de persona</th>
+                <th scope="col">Usuario de persona</th>
+                <th scope="col">Dinero gastado</th>
+            </tr>
+            </thead>
+            <tbody >
+            <tr *ngFor="let registro of registros, index as i">
+                <td>{{registro.NOMBRE}}</td>
+                <td>{{registro.USUARIO}}</td>
+                <td>{{registro.CANT_DIN}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <!-- Reporte5: Usuarios de X pais -->
+    <div *ngIf="opcion == 'reporte5'">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Ingrese pais del usuario: </span>
+            </div>
+            <input [(ngModel)]="pais_usuario" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+        </div>
+
+        <button (click)="get_registros()" type="button" class="btn btn-primary">Buscar</button>
+
+        <table class="table table-dark">
+            <thead>
+            <tr>
+                <th scope="col">Nombre de persona</th>
+                <th scope="col">Usuario de persona</th>
+            </tr>
+            </thead>
+            <tbody >
+            <tr *ngFor="let registro of registros, index as i">
+                <td>{{registro.NOMBRE}}</td>
+                <td>{{registro.USUARIO}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <!-- Reporte6: Usuarios de X genero -->
+    <div *ngIf="opcion == 'reporte6'">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Ingrese genero del usuario: </span>
+            </div>
+            <input [(ngModel)]="genero_usuario" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+        </div>
+
+        <button (click)="get_registros()" type="button" class="btn btn-primary">Buscar</button>
+
+        <table class="table table-dark">
+            <thead>
+            <tr>
+                <th scope="col">Nombre de persona</th>
+                <th scope="col">Usuario de persona</th>
+            </tr>
+            </thead>
+            <tbody >
+            <tr *ngFor="let registro of registros, index as i">
+                <td>{{registro.NOMBRE}}</td>
+                <td>{{registro.USUARIO}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Reporte7: Usuarios con almenos X años de edad -->
+    <div *ngIf="opcion == 'reporte7'">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Años del usuario: </span>
+            </div>
+            <input [(ngModel)]="anios_usuario" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+        </div>
+
+        <button (click)="get_registros()" type="button" class="btn btn-primary">Buscar</button>
+
+        <table class="table table-dark">
+            <thead>
+            <tr>
+                <th scope="col">Nombre de persona</th>
+                <th scope="col">Usuario de persona</th>
+                <th scope="col">Años</th>
+            </tr>
+            </thead>
+            <tbody >
+            <tr *ngFor="let registro of registros, index as i">
+                <td>{{registro.NOMBRE}}</td>
+                <td>{{registro.USUARIO}}</td>
+                <td>{{registro.ANIOS}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <!-- Reporte8: Empleados que MAS/MENOS noticias han publicado -->
+    <div *ngIf="opcion == 'reporte8'">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Ingrese "mas" o "menos" de noticias publicadas por empleado: </span>
+            </div>
+            <input [(ngModel)]="noticias_consutla" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+        </div>
+
+        <button (click)="get_registros()" type="button" class="btn btn-primary">Buscar</button>
+
+        <table class="table table-dark">
+            <thead>
+            <tr>
+                <th scope="col">Nombre de persona</th>
+                <th scope="col">Usuario de persona</th>
+                <th scope="col">Años</th>
+            </tr>
+            </thead>
+            <tbody >
+            <tr *ngFor="let registro of registros, index as i">
+                <td>{{registro.NOMBRE}}</td>
+                <td>{{registro.USUARIO}}</td>
+                <td>{{registro.ANIOS}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <!-- Reporte9: Empleados que MAS/MENOS noticias han publicado de X equipo -->
+    <div *ngIf="opcion == 'reporte9'">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Ingrese "mas" o "menos" de noticias publicadas por empleado: </span>
+            </div>
+            <input [(ngModel)]="noticias_consutla" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+        </div>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Nombre de equipo: </span>
+            </div>
+            <input [(ngModel)]="nombre_equipo" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+        </div>
+
+
+        <button (click)="get_registros()" type="button" class="btn btn-primary">Buscar</button>
+
+        <table class="table table-dark">
+            <thead>
+            <tr>
+                <th scope="col">Nombre de persona</th>
+                <th scope="col">Usuario de persona</th>
+                <th scope="col">Años</th>
+            </tr>
+            </thead>
+            <tbody >
+            <tr *ngFor="let registro of registros, index as i">
+                <td>{{registro.NOMBRE}}</td>
+                <td>{{registro.USUARIO}}</td>
+                <td>{{registro.ANIOS}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <!-- Reporte10: Bitacoras de los administradores -->
+    <div *ngIf="opcion == 'reporte10'">
+        <table class="table table-dark">
+            <thead>
+            <tr>
+                <th scope="col">Fecha de bitacora</th>
+                <th scope="col">Nombre del administrador</th>
+                <th scope="col">Usuario del administrador</th>
+                <th scope="col">Descripcion</th>
+            </tr>
+            </thead>
+            <tbody >
+            <tr *ngFor="let registro of registros, index as i">
+                <td>{{registro.FECHA}}</td>
+                <td>{{registro.NOMBRE}}</td>
+                <td>{{registro.USUARIO}}</td>
+                <td>{{registro.DESCRIPCION}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>

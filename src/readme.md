@@ -6,6 +6,7 @@
 3. [Creación de cuentas](#creacion_cuentas)
 4. [Login](#login)
 5. [Usuarios](#users)
+6. [Equipos](#teams)
 
 
 <a id="general"></a>
@@ -171,3 +172,99 @@ localhost:3000/users
     ...
 ] 
 ```
+
+<a id="teams"></a>
+## Equipos
+
+### Endpoint
+
+### Post, Get
+```
+localhost:3000/teams
+```
+
+### Métodos
+- GET
+- POST
+- DELETE
+- PUT
+
+### Modelo esperado
+### Post
+```javascript
+{
+    FECHA_FUNDACION: string (YYYY-MM-DD),
+    NOMBRE: string,
+    PAIS: string,
+    LOGO: null,
+} 
+```
+### Put
+```javascript
+{
+    ID: number,
+    FECHA_FUNDACION: string (YYYY-MM-DD),
+    NOMBRE: string,
+    PAIS: string,
+    LOGO: null,
+} 
+```
+### Delete
+Enviar id del equipo en ruta.
+```
+localhost:3000/teams/:id
+```
+
+### Get 
+Si se desea obtener la información de equipo en específico. Enviar id del equipo en ruta.
+```
+localhost:3000/teams/:id
+```
+
+
+### Retorno
+### Get
+```javascript
+[
+    {
+        ID: number,
+        NOMBRE: string,
+        PAIS: string,
+        FECHA_FUNDACION: string,
+        LOGO: null,
+    }, 
+    ...
+] 
+```
+(con id)
+```javascript
+{
+    ID: number,
+    NOMBRE: string,
+    PAIS: string,
+    FECHA_FUNDACION: string,
+    LOGO: null,
+}
+```
+
+### Post
+```javascript
+{
+    MESSAGE: "Equipo creado"
+}
+```
+
+### Delete
+```javascript
+{
+    MESSAGE: "Equipo eliminado"
+}
+```
+
+### Put
+```javascript
+{
+    MESSAGE: "Datos actualizados"
+}
+```
+

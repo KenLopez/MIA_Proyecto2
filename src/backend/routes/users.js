@@ -13,7 +13,7 @@ const queryConfig = {
 
 router.get('/', async function(req, res, next) {
   let conn;
-  let result = {result: [], errors: []};
+  var result;
 
   try {
     conn = await oracledb.getConnection(config)
@@ -26,7 +26,7 @@ router.get('/', async function(req, res, next) {
         CORREO,
         TELEFONO,
         GENERO,
-        TO_CHAR(FECHA_NAC, 'DD-MM-YYYY') AS FECHA_NAC,
+        TO_CHAR(FECHA_NAC, 'YYYY/MM/DD') AS FECHA_NAC,
         DIRECCION,
         PAIS,
         TIPO,
@@ -39,7 +39,7 @@ router.get('/', async function(req, res, next) {
 
     res.status(200);
   } catch (err) {
-    result.errors.push('Error de conexión');
+    result = 'Error de conexión';
     res.status(500);
   } finally {
     if (conn) { // conn assignment worked, need to close

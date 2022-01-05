@@ -1,8 +1,10 @@
 CREATE TABLE Jugador (
 	id INTEGER GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1),
+	nombre VARCHAR2(200) NOT NULL,
 	fecha_nac DATE,
-	nacionalidad VARCHAR2(100),
-	posicion VARCHAR2(2),
+	nacionalidad VARCHAR2(100) NOT NULL,
+	posicion VARCHAR2(50) NOT NULL,
+	estado VARCHAR2(50) NOT NULL,
 	PRIMARY KEY(id)
 ); 
 
@@ -12,6 +14,7 @@ CREATE TABLE Equipo(
 	fecha_fundacion DATE NOT NULL,
 	pais VARCHAR2(50) NOT NULL,
 	logo BLOB,
+	estado VARCHAR2(50) NOT NULL,
 	PRIMARY KEY(id)
 );
 
@@ -21,7 +24,8 @@ CREATE TABLE Estadio(
 	capacidad INTEGER,
 	pais VARCHAR2(100) NOT NULL,
 	direccion VARCHAR2(100) NOT NULL,
-	estado VARCHAR2(50),
+	estado VARCHAR2(50) NOT NULL,
+	foto BLOB,
 	PRIMARY KEY(id)
 );
 
@@ -49,7 +53,7 @@ CREATE TABLE Director_tecnico(
 	apellido VARCHAR2(100) NOT NULL,
 	fecha_nac DATE NOT NULL,
 	nacionalidad VARCHAR2(50) NOT NULL,
-	estado VARCHAR2(30),
+	estado VARCHAR2(50) NOT NULL,
 	foto BLOB,
 	PRIMARY KEY(id)
 );
@@ -58,9 +62,11 @@ CREATE TABLE Competencia(
 	id INTEGER GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1),
 	nombre VARCHAR2(100) NOT NULL,
 	anio INTEGER NOT NULL,
-	tipo VARCHAR2(1),
+	tipo VARCHAR2(100),
 	pais VARCHAR2(100),
-	PRIMARY KEY(id)
+	campeon INTEGER,
+	PRIMARY KEY(id),
+	FOREIGN KEY (campeon) REFERENCES Equipo(id)
 );
 
 CREATE TABLE Contrato_jugador(
@@ -214,8 +220,6 @@ INSERT INTO USUARIO(
 	1
 );
 
-SELECT * FROM USUARIO;
-
 CREATE OR REPLACE PROCEDURE entrada_bitacora(id_autor IN INTEGER, id_objeto IN INTEGER, descripcion IN VARCHAR, accion IN VARCHAR) IS 
 BEGIN 
 	INSERT INTO BITACORA(
@@ -232,8 +236,4 @@ BEGIN
 		SYSDATE
 	);
 END;
-
-CALL ENTRADA_BITACORA(1, 1, 'Inactividad', 'Eliminación');
-
-SELECT * FROM BITACORA;
 

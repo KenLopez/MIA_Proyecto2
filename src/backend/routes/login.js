@@ -2,27 +2,20 @@ var jwt = require('jsonwebtoken');
 var nodemailer = require('nodemailer');
 var express = require('express');
 var router = express.Router();
-const oracledb = require('oracledb')
-const config = {
-  user: 'kenneth',
-  password: '2109',
-  connectString: 'localhost:1521/ORCL18'
-};
-const queryConfig = {
-    outFormat: oracledb.OUT_FORMAT_OBJECT,
-    autoCommit: true,
-};
+const oracledb = require('oracledb');
+const settings = require('../public/javascripts/Settings');
+
 const EMAIL_SECRET = 'asdf1093KMnzxcvnkljvasdu09123nlasdasdf';
 
 router.post('/', async function(req, res) {
   let conn;
   const body = req.body;
-  let result = {result: [], errors: []};
+  var result;
 
   try {
-    conn = await oracledb.getConnection(config)
+    conn = await oracledb.getConnection(settings.conn)
 
-    result.result = (await conn.execute(
+    result = (await conn.execute(
         `SELECT 
             ID,
             NOMBRE,
@@ -37,14 +30,13 @@ router.post('/', async function(req, res) {
             AND REGISTRADO = 1   
         `,
         [],
-        queryConfig
-    ))?.rows;
+        settings.query
+    ))?.rows[0];
     res.status(200);
-    if(result.result.length==0){
-        result.errors.push('Credenciales incorrectas');
+    if(!result){
+        result = 'Credenciales incorrectas';
         res.status(500);
     }
-    result.result = result.result[0];
   } catch (err) {
     res.status(500);
   } finally {
@@ -58,9 +50,10 @@ router.post('/', async function(req, res) {
 router.put('/', async function(req, res) {
   let conn;
   const body = req.body;
-  let result = {result: [], errors: []};
+  var result;
+  var errors = [];
   try {
-    conn = await oracledb.getConnection(config)
+    conn = await oracledb.getConnection(settings.conn)
     const {user: id} = jwt.verify(body.TOKEN, EMAIL_SECRET);
     await conn.execute(
       `UPDATE USUARIO 
@@ -69,10 +62,10 @@ router.put('/', async function(req, res) {
           ID = ${id}
       `,
       [],
-      queryConfig
+      settings.query
     );
 
-    result.result = (await conn.execute(
+    result = (await conn.execute(
       `SELECT 
           ID,
           NOMBRE,
@@ -85,11 +78,11 @@ router.put('/', async function(req, res) {
           ID = ${id}  
       `,
       [],
-      queryConfig
+      settings.query
     ))?.rows[0];
   } catch (e) {
     console.log(e);
-    result.errors.push('Token no válido');
+    result = 'Token no válido';
     res.status(500);
   } finally {
     if (conn) { 
